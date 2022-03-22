@@ -21,7 +21,8 @@ import {Button} from "reactstrap";
 
 class EditCategory extends Component {
   state = {
-    name: ''
+    name: '',
+    error_message_name: ''
   }
   
   handleUpdate = () => {
@@ -29,6 +30,12 @@ class EditCategory extends Component {
       var results = API.patch('api/categories/' + this.props.match.params.id, {name: this.state.name})
         .then(result => {
           this.props.history.push('/admin/categories');
+        }).catch((error) => {
+          const errors = error.response.data.errors;
+          
+          (errors['name'] !== undefined) ?
+            this.setState({ error_message_name: errors['name'][0] }) :
+            this.setState({ error_message_name: '' });
         });
     } else {
       this.validator.showMessages();
@@ -88,6 +95,7 @@ class EditCategory extends Component {
                     />
                     <FormText color="muted">
                       {this.validator.message('naziv', this.state.name, 'required|alpha')}
+                      {this.state.error_message_name}
                     </FormText>
                   </FormGroup>
                   <Button color="primary" type="button" onClick={() => this.handleUpdate()}>
