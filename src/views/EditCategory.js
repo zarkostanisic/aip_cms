@@ -24,9 +24,9 @@ class EditCategory extends Component {
     name: ''
   }
   
-  handleSave = () => {
+  handleUpdate = () => {
     if (this.validator.allValid()) {
-      var results = API.post('api/categories', {name: this.state.name})
+      var results = API.patch('api/categories/' + this.props.match.params.id, {name: this.state.name})
         .then(result => {
           this.props.history.push('/admin/categories');
         });
@@ -41,10 +41,27 @@ class EditCategory extends Component {
     this.setState({[event.target.name]:event.target.value });
   } 
   
+  getCategory = () => {
+    
+    if(this.props.match.params.id){
+      var result = API.get('api/categories/' + this.props.match.params.id)
+        .then(result => {
+          console.log(result);
+          this.setState({
+            name: result.data.data.name
+          });
+        });
+    }
+  }
+  
   componentWillMount() {
     // Serbian
     SimpleReactValidator.addLocale('sr', validation);
     this.validator = new SimpleReactValidator({locale: 'sr'});
+  }
+  
+  componentDidMount(){
+     this.getCategory();
   }
   
   render(){
@@ -60,24 +77,22 @@ class EditCategory extends Component {
                   </CardTitle>
                 </CardHeader>
                 <CardBody>
-                  <form>
-                    <FormGroup>
-                      <Label for="name">Naziv</Label>
-                      <Input
-                        type="name"
-                        name="name"
-                        placeholder="Vodopadi"
-                        value={this.state.name} 
-                        onChange={this.handleChange}
-                      />
-                      <FormText color="muted">
-                        {this.validator.message('naziv', this.state.name, 'required|alpha')}
-                      </FormText>
-                    </FormGroup>
-                    <Button color="primary" type="button" onClick={() => this.handleSave()}>
-                      Sačuvaj
-                    </Button>
-                  </form>
+                  <FormGroup>
+                    <Label for="name">Naziv</Label>
+                    <Input
+                      type="name"
+                      name="name"
+                      placeholder="Vodopadi"
+                      value={this.state.name} 
+                      onChange={this.handleChange}
+                    />
+                    <FormText color="muted">
+                      {this.validator.message('naziv', this.state.name, 'required|alpha')}
+                    </FormText>
+                  </FormGroup>
+                  <Button color="primary" type="button" onClick={() => this.handleUpdate()}>
+                    Sačuvaj
+                  </Button>
                 </CardBody>
               </Card>
             </Col>
