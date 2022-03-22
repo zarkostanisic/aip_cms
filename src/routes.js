@@ -29,6 +29,10 @@ import Categories from "views/Categories/Categories.js";
 import NewCategory from "views/Categories/NewCategory.js";
 import EditCategory from "views/Categories/EditCategory.js";
 
+import Users from "views/Users/Users.js";
+import NewUser from "views/Users/NewUser.js";
+import EditUser from "views/Users/EditUser.js";
+
 var routes = [
   {
     path: "/categories/new",
@@ -51,6 +55,29 @@ var routes = [
     name: "Kategorije",
     icon: "nc-icon nc-layout-11",
     component: Categories,
+    layout: "/admin",
+  },
+  {
+    path: "/users/new",
+    name: "Nov korisnik",
+    icon: "nc-icon nc-bank",
+    component: NewUser,
+    layout: "/admin",
+    pro: true
+  },
+  {
+    path: "/userss/edit/:id",
+    name: "Izmena korisnika",
+    icon: "nc-icon nc-bank",
+    component: EditUser,
+    layout: "/admin",
+    pro: true
+  },
+  {
+    path: "/users",
+    name: "Korisnici",
+    icon: "nc-icon nc-layout-11",
+    component: Users,
     layout: "/admin",
   },
   {
