@@ -21,6 +21,7 @@ import React from "react";
 import { Container, Row } from "reactstrap";
 // used for making the prop types of this component
 import PropTypes from "prop-types";
+import {Link} from "react-router-dom";
 
 function Footer(props) {
   return (
@@ -30,26 +31,25 @@ function Footer(props) {
           <nav className="footer-nav">
             <ul>
               <li>
-                <a href="https://www.creative-tim.com" target="_blank">
-                  Creative Tim
-                </a>
+                <Link to="/">
+                  AIP
+                </Link>
               </li>
               <li>
-                <a href="https://blog.creative-tim.com" target="_blank">
-                  Blog
-                </a>
+                <Link to="/admin/categories">
+                  Kategorije
+                </Link>
               </li>
               <li>
-                <a href="https://www.creative-tim.com/license" target="_blank">
-                  Licenses
-                </a>
+                <Link to="/admin/users">
+                  Korisnici
+                </Link>
               </li>
             </ul>
           </nav>
           <div className="credits ml-auto">
             <div className="copyright">
-              &copy; {1900 + new Date().getYear()}, made with{" "}
-              <i className="fa fa-heart heart" /> by Creative Tim
+              &copy; {1900 + new Date().getYear()}, AIP.
             </div>
           </div>
         </Row>

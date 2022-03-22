@@ -23,7 +23,7 @@ import {Link} from "react-router-dom";
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
 
-import logo from "logo.svg";
+import logo from "logo.png";
 
 var ps;
 
@@ -53,14 +53,14 @@ function Sidebar(props) {
       data-active-color={props.activeColor}
     >
       <div className="logo">
-        <a
-          href="https://www.creative-tim.com"
+        <Link
+          to="/"
           className="simple-text logo-mini"
         >
           <div className="logo-img">
             <img src={logo} alt="react-logo" />
           </div>
-        </a>
+        </Link>
         <Link to="/"
           className="simple-text logo-normal"
         >
