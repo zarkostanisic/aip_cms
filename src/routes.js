@@ -80,13 +80,13 @@ var routes = [
     component: Users,
     layout: "/admin",
   },
-  // {
-  //   path: "/dashboard",
-  //   name: "Dashboard",
-  //   icon: "nc-icon nc-bank",
-  //   component: Dashboard,
-  //   layout: "/admin"
-  // },
+  {
+    path: "/dashboard",
+    name: "Dashboard",
+    icon: "nc-icon nc-bank",
+    component: Dashboard,
+    layout: "/admin"
+  },
   // {
   //   path: "/icons",
   //   name: "Icons",
