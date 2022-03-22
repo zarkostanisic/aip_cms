@@ -40,7 +40,7 @@ var routes = [
     icon: "nc-icon nc-bank",
     component: NewCategory,
     layout: "/admin",
-    pro: true
+    hidden: true
   },
   {
     path: "/categories/edit/:id",
@@ -48,7 +48,7 @@ var routes = [
     icon: "nc-icon nc-bank",
     component: EditCategory,
     layout: "/admin",
-    pro: true
+    hidden: true
   },
   {
     path: "/categories",
@@ -63,7 +63,7 @@ var routes = [
     icon: "nc-icon nc-bank",
     component: NewUser,
     layout: "/admin",
-    pro: true
+    hidden: true
   },
   {
     path: "/users/edit/:id",
@@ -71,7 +71,7 @@ var routes = [
     icon: "nc-icon nc-bank",
     component: EditUser,
     layout: "/admin",
-    pro: true
+    hidden: true
   },
   {
     path: "/users",
