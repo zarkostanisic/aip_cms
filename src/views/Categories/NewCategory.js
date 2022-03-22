@@ -73,7 +73,6 @@ class NewCategory extends Component {
                       <Input
                         type="name"
                         name="name"
-                        placeholder="Vodopadi"
                         value={this.state.name} 
                         onChange={this.handleChange}
                       />
