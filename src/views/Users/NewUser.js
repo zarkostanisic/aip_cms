@@ -30,7 +30,7 @@ class NewUser extends Component {
     error_message_email: '',
     password: '',
     error_message_password: '',
-    role_id: 0
+    role_id: 3
   }
   
   handleSave = () => {
@@ -46,19 +46,21 @@ class NewUser extends Component {
         .then(result => {
           this.props.history.push('/admin/users');
         }).catch((error) => {
-          const errors = error.response.data.errors;
-          
-          (errors['username'] !== undefined) ?
-            this.setState({ error_message_username: errors['username'][0] }) :
-            this.setState({ error_message_username: '' });
+          if(error.response.status == 422){
+            const errors = error.response.data.errors;
             
+            (errors['username'] !== undefined) ?
+              this.setState({ error_message_username: errors['username'][0] }) :
+              this.setState({ error_message_username: '' });
+              
             (errors['email'] !== undefined) ?
               this.setState({ error_message_email: errors['email'][0] }) :
               this.setState({ error_message_email: '' });
-              
-              (errors['password'] !== undefined) ?
-                this.setState({ error_message_password: errors['password'][0] }) :
-                this.setState({ error_message_password: '' });
+                
+            (errors['password'] !== undefined) ?
+              this.setState({ error_message_password: errors['password'][0] }) :
+              this.setState({ error_message_password: '' });
+          }
         });
     } else {
       this.validator.showMessages();
@@ -92,20 +94,18 @@ class NewUser extends Component {
   render(){
     const roles = this.state.roles.map((role) => {
       return (
-        <>
-          <option value={role.id}>{role.name}</option>
-        </>
+        <option value={role.id} key={role.id}>{role.name}</option>
       );
-    })
+    });
     return (
       <>
         <div className="content">
           <Row>
-            <Col md="12">
+            <Col md="6">
               <Card>
                 <CardHeader>
                   <CardTitle tag="h4">
-                    Nov korisnik
+                    Novi korisnik
                   </CardTitle>
                 </CardHeader>
                 <CardBody>

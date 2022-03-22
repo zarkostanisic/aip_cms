@@ -85,7 +85,11 @@ class Users extends Component {
       return (
         <tr key={user.id}>
           <td>{user.id}</td>
+          <td>{user.first_name}</td>
+          <td>{user.last_name}</td>
           <td>{user.username}</td>
+          <td>{user.email}</td>
+          <td>{user.role.name}</td>
           <td>
             <Button to={'/admin/users/edit/' + user.id} color="info" className="ml-2" tag={Link}>Izmeni</Button>
             <Button color="danger" className="ml-2" onClick={() => this.handleDelete(user.id)}>Obriši</Button>
@@ -111,7 +115,11 @@ class Users extends Component {
                     <thead className="text-primary">
                       <tr>
                         <th>Id</th>
+                        <th>Ime</th>
+                        <th>Prezime</th>
                         <th>Korisničko ime</th>
+                        <th>Email</th>
+                        <th>Uloga</th>
                         <th></th>
                       </tr>
                     </thead>

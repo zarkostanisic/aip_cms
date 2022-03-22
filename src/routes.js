@@ -66,7 +66,7 @@ var routes = [
     pro: true
   },
   {
-    path: "/userss/edit/:id",
+    path: "/users/edit/:id",
     name: "Izmena korisnika",
     icon: "nc-icon nc-bank",
     component: EditUser,

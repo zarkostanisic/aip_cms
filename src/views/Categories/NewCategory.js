@@ -31,11 +31,13 @@ class NewCategory extends Component {
         .then(result => {
           this.props.history.push('/admin/categories');
         }).catch((error) => {
-          const errors = error.response.data.errors;
-          
-          (errors['name'] !== undefined) ?
-            this.setState({ error_message_name: errors['name'][0] }) :
-            this.setState({ error_message_name: '' });
+          if(error.response.status == 422){
+            const errors = error.response.data.errors;
+            
+            (errors['name'] !== undefined) ?
+              this.setState({ error_message_name: errors['name'][0] }) :
+              this.setState({ error_message_name: '' });
+          }
         });
     } else {
       this.validator.showMessages();
@@ -59,7 +61,7 @@ class NewCategory extends Component {
       <>
         <div className="content">
           <Row>
-            <Col md="12">
+            <Col md="6">
               <Card>
                 <CardHeader>
                   <CardTitle tag="h4">
