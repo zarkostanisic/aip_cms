@@ -25,9 +25,9 @@ import Maps from "views/Map.js";
 import UserPage from "views/User.js";
 import UpgradeToPro from "views/Upgrade.js";
 
-import Categories from "views/Categories.js";
-import NewCategory from "views/NewCategory.js";
-import EditCategory from "views/EditCategory.js";
+import Categories from "views/Categories/Categories.js";
+import NewCategory from "views/Categories/NewCategory.js";
+import EditCategory from "views/Categories/EditCategory.js";
 
 var routes = [
   {
@@ -49,7 +49,7 @@ var routes = [
   {
     path: "/categories",
     name: "Kategorije",
-    icon: "nc-icon nc-bank",
+    icon: "nc-icon nc-layout-11",
     component: Categories,
     layout: "/admin",
   },

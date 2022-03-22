@@ -17,8 +17,8 @@
 
 */
 import React, {Component} from "react";
-import Pagination from '../components/Pagination/Pagination';
-import API from '../api/api';
+import Pagination from '../../components/Pagination/Pagination';
+import API from '../../api/api';
 import {Link} from "react-router-dom";
 
 // reactstrap components

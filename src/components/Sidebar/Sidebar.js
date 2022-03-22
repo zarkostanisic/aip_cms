@@ -19,6 +19,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { Nav } from "reactstrap";
+import {Link} from "react-router-dom";
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
 
@@ -60,12 +61,11 @@ function Sidebar(props) {
             <img src={logo} alt="react-logo" />
           </div>
         </a>
-        <a
-          href="https://www.creative-tim.com"
+        <Link to="/"
           className="simple-text logo-normal"
         >
           AIP CMS
-        </a>
+        </Link>
       </div>
       <div className="sidebar-wrapper" ref={sidebar}>
         <Nav>

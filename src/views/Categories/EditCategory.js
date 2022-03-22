@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
-import API from '../api/api';
-import validation from '../lang/sr/validation';
+import API from '../../api/api';
+import validation from '../../lang/sr/validation';
 import SimpleReactValidator from 'simple-react-validator';
 
 import {
