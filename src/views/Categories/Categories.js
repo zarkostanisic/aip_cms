@@ -87,8 +87,8 @@ class Categories extends Component {
           <td>{category.id}</td>
           <td>{category.name}</td>
           <td>
-            <Button to={'/admin/categories/edit/' + category.id} color="info" className="ml-2" tag={Link}>Izmeni</Button>
-            <Button color="danger" className="ml-2" onClick={() => this.handleDelete(category.id)}>Obriši</Button>
+            <Button to={'/admin/categories/edit/' + category.id} color="info" className="ml-2 mt-1 mb-1" tag={Link}>Izmeni</Button>
+            <Button color="danger" className="ml-2 mt-1 mb-1" onClick={() => this.handleDelete(category.id)}>Obriši</Button>
           </td>
         </tr>
       );
