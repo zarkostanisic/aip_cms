@@ -29,14 +29,12 @@ import Categories from "views/Categories.js";
 import NewCategory from "views/NewCategory.js";
 
 var routes = [
-  
   {
     path: "/newCategory",
     name: "Nova kategorija",
     icon: "nc-icon nc-bank",
     component: NewCategory,
     layout: "/admin",
-    pro: 'test'
   },
   {
     path: "/categories",
@@ -44,14 +42,13 @@ var routes = [
     icon: "nc-icon nc-bank",
     component: Categories,
     layout: "/admin",
-    pro: 'test'
   },
   {
     path: "/dashboard",
     name: "Dashboard",
     icon: "nc-icon nc-bank",
     component: Dashboard,
-    layout: "/admin",
+    layout: "/admin"
   },
   {
     path: "/icons",
