@@ -19,7 +19,7 @@ import {
 
 import {Button} from "reactstrap";
 
-class NewCategory extends Component {
+class EditCategory extends Component {
   state = {
     name: ''
   }
@@ -56,7 +56,7 @@ class NewCategory extends Component {
               <Card>
                 <CardHeader>
                   <CardTitle tag="h4">
-                    Nova kategorija
+                    Izmena kategorije
                   </CardTitle>
                 </CardHeader>
                 <CardBody>
@@ -88,4 +88,4 @@ class NewCategory extends Component {
   }
 };
 
-export default NewCategory;
+export default EditCategory;

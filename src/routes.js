@@ -27,14 +27,24 @@ import UpgradeToPro from "views/Upgrade.js";
 
 import Categories from "views/Categories.js";
 import NewCategory from "views/NewCategory.js";
+import EditCategory from "views/EditCategory.js";
 
 var routes = [
   {
-    path: "/newCategory",
+    path: "/categories/new",
     name: "Nova kategorija",
     icon: "nc-icon nc-bank",
     component: NewCategory,
     layout: "/admin",
+    pro: true
+  },
+  {
+    path: "/categories/edit/:id",
+    name: "Izmena kategorije",
+    icon: "nc-icon nc-bank",
+    component: EditCategory,
+    layout: "/admin",
+    pro: true
   },
   {
     path: "/categories",
