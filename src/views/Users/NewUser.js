@@ -21,6 +21,7 @@ import {Button} from "reactstrap";
 
 class NewUser extends Component {
   state = {
+    roles: [],
     first_name: '',
     last_name: '',
     username: '',
@@ -29,7 +30,7 @@ class NewUser extends Component {
     error_message_email: '',
     password: '',
     error_message_password: '',
-    role_id: 3
+    role_id: 0
   }
   
   handleSave = () => {
@@ -70,13 +71,32 @@ class NewUser extends Component {
     this.setState({[event.target.name]:event.target.value });
   } 
   
+  getRoles = () => {
+    
+    var result = API.get('api/app/roles')
+      .then(result => {
+        this.setState({
+          roles: result.data.data
+        });
+      });
+  }
+  
   componentWillMount() {
     // Serbian
     SimpleReactValidator.addLocale('sr', validation);
     this.validator = new SimpleReactValidator({locale: 'sr'});
+    
+    this.getRoles();
   }
   
   render(){
+    const roles = this.state.roles.map((role) => {
+      return (
+        <>
+          <option value={role.id}>{role.name}</option>
+        </>
+      );
+    })
     return (
       <>
         <div className="content">
@@ -156,6 +176,16 @@ class NewUser extends Component {
                         {this.validator.message('password', this.state.password, 'required|alpha')}
                         {this.state.error_message_password}
                       </FormText>
+                    </FormGroup>
+                    
+                    <FormGroup>
+                      <Label for="role_id">Uloga</Label>
+                      <Input type="select"
+                        name="role_id" value={this.state.role_id} 
+                        onChange={this.handleChange}
+                      >
+                        {roles}
+                      </Input>
                     </FormGroup>
                     
                     <Button color="primary" type="button" onClick={() => this.handleSave()}>
