@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import API from '../../api/api';
 import validation from '../../lang/sr/validation';
 import SimpleReactValidator from 'simple-react-validator';
+import { fileToBase64 } from '../../components/Functions/Functions';
 
 import {
   FormGroup,
@@ -30,7 +31,8 @@ class NewUser extends Component {
     error_message_email: '',
     password: '',
     error_message_password: '',
-    role_id: 3
+    role_id: 3,
+    image: []
   }
   
   handleSave = () => {
@@ -42,6 +44,7 @@ class NewUser extends Component {
         email: this.state.email,
         password: this.state.password,
         role_id: this.state.role_id,
+        image: this.state.image
       })
         .then(result => {
           this.props.history.push('/admin/users');
@@ -82,6 +85,15 @@ class NewUser extends Component {
         });
       });
   }
+  
+  fileSelectedHandler = event => {
+      const image = event.target.files[0];
+      
+      fileToBase64(image).then(result => {
+          const newFiles = [...this.state.image, result];
+          this.setState({ image: newFiles});
+      });
+  };
   
   componentWillMount() {
     // Serbian
@@ -186,6 +198,15 @@ class NewUser extends Component {
                       >
                         {roles}
                       </Input>
+                    </FormGroup>
+                    
+                    <FormGroup>
+                      <Label for="role_id">image</Label>
+                      <Input type="file"
+                        name="image" 
+                        id="image"
+                        onChange={this.fileSelectedHandler}
+                      ></Input>
                     </FormGroup>
                     
                     <Button color="primary" type="button" onClick={() => this.handleSave()}>
