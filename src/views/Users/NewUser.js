@@ -32,7 +32,9 @@ class NewUser extends Component {
     password: '',
     error_message_password: '',
     role_id: 3,
-    image: []
+    image: [],
+    team: false,
+    about: ''
   }
   
   handleSave = () => {
@@ -44,7 +46,9 @@ class NewUser extends Component {
         email: this.state.email,
         password: this.state.password,
         role_id: this.state.role_id,
-        image: this.state.image
+        image: this.state.image,
+        team: this.state.team ? 1 : 0,
+        about: this.state.about
       })
         .then(result => {
           this.props.history.push('/admin/users');
@@ -74,6 +78,11 @@ class NewUser extends Component {
   
   handleChange=(event)=>{
     this.setState({[event.target.name]:event.target.value });
+  } 
+  
+  handleCheckbox=(event)=>{
+    let value = !this.state.team;
+    this.setState({team: value})
   } 
   
   getRoles = () => {
@@ -200,13 +209,34 @@ class NewUser extends Component {
                       </Input>
                     </FormGroup>
                     
+                    <FormGroup check>
+                      <Label check>
+                        <Input type="checkbox" id="team" name="team" onChange={this.handleCheckbox} checked={this.state.team}/>{' '}
+                        Tim
+                        <span className="form-check-sign">
+                          <span className="check"></span>
+                        </span>
+                      </Label>
+                      {this.validator.message('tim', this.state.team, 'required|boolean')}
+                    </FormGroup>
+                    
                     <FormGroup>
-                      <Label for="role_id">image</Label>
+                      <Label for="role_id">Avatar</Label>
                       <Input type="file"
                         name="image" 
                         id="image"
                         onChange={this.fileSelectedHandler}
                       ></Input>
+                      {this.validator.message('slika', this.state.image, 'required')}
+                    </FormGroup>
+                    
+                    <FormGroup>
+                      <Label for="text">Tekst</Label>
+                      <Input type="textarea" name="about" 
+                        value={this.state.about} 
+                        onChange={this.handleChange} 
+                      />
+                      {this.validator.message('tekst', this.state.about, 'required')}
                     </FormGroup>
                     
                     <Button color="primary" type="button" onClick={() => this.handleSave()}>

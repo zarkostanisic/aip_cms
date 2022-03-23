@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import API from '../../api/api';
 import validation from '../../lang/sr/validation';
 import SimpleReactValidator from 'simple-react-validator';
+import { fileToBase64 } from '../../components/Functions/Functions';
 
 import {
   FormGroup,
@@ -30,7 +31,10 @@ class EditCategory extends Component {
     error_message_email: '',
     password: '',
     error_message_password: '',
-    role_id: 0
+    role_id: 3,
+    image: [],
+    team: false,
+    about: ''
   }
   
   getRoles = () => {
@@ -52,6 +56,9 @@ class EditCategory extends Component {
         email: this.state.email,
         password: this.state.password,
         role_id: this.state.role_id,
+        image: this.state.image,
+        team: this.state.team ? 1 : 0,
+        about: this.state.about
       })
         .then(result => {
           this.props.history.push('/admin/users');
@@ -81,7 +88,21 @@ class EditCategory extends Component {
   
   handleChange=(event)=>{
     this.setState({[event.target.name]:event.target.value });
-  } 
+  }
+  
+  handleCheckbox=(event)=>{
+    let value = !this.state.team;
+    this.setState({team: value})
+  }  
+  
+  fileSelectedHandler = event => {
+      const image = event.target.files[0];
+      
+      fileToBase64(image).then(result => {
+          const newFiles = [...this.state.image, result];
+          this.setState({ image: newFiles});
+      });
+  };
   
   getUser = () => {
     
@@ -94,6 +115,8 @@ class EditCategory extends Component {
             username: result.data.data.username,
             email: result.data.data.email,
             role_id: result.data.data.role.id,
+            team: Boolean(result.data.data.team),
+            about: result.data.data.about,
           });
         });
     }
@@ -205,6 +228,35 @@ class EditCategory extends Component {
                     >
                       {roles}
                     </Input>
+                  </FormGroup>
+                  
+                  <FormGroup check>
+                    <Label check>
+                      <Input type="checkbox" id="team" name="team" onChange={this.handleCheckbox} checked={this.state.team}/>{' '}
+                      Tim
+                      <span className="form-check-sign">
+                        <span className="check"></span>
+                      </span>
+                    </Label>
+                    {this.validator.message('tim', this.state.team, 'required|boolean')}
+                  </FormGroup>
+                  
+                  <FormGroup>
+                    <Label for="role_id">Avatar</Label>
+                    <Input type="file"
+                      name="image" 
+                      id="image"
+                      onChange={this.fileSelectedHandler}
+                    ></Input>
+                  </FormGroup>
+                  
+                  <FormGroup>
+                    <Label for="text">Tekst</Label>
+                    <Input type="textarea" name="about" 
+                      value={this.state.about} 
+                      onChange={this.handleChange} 
+                    />
+                    {this.validator.message('tekst', this.state.about, 'required')}
                   </FormGroup>
                   
                   <Button color="primary" type="button" onClick={() => this.handleUpdate()}>
