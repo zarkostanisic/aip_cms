@@ -35,6 +35,13 @@ import EditUser from "views/Users/EditUser.js";
 
 var routes = [
   {
+    path: "/dashboard",
+    name: "Dashboard",
+    icon: "nc-icon nc-bank",
+    component: Dashboard,
+    layout: "/admin"
+  },
+  {
     path: "/categories/new",
     name: "Nova kategorija",
     icon: "nc-icon nc-bank",
@@ -79,13 +86,6 @@ var routes = [
     icon: "nc-icon nc-single-02",
     component: Users,
     layout: "/admin",
-  },
-  {
-    path: "/dashboard",
-    name: "Dashboard",
-    icon: "nc-icon nc-bank",
-    component: Dashboard,
-    layout: "/admin"
   },
   // {
   //   path: "/icons",
