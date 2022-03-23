@@ -125,7 +125,7 @@ class Categories extends Component {
                     {
                       this.state.loading ?
                         <tr>
-                          <td colspan="7">
+                          <td colSpan="7">
                             <Spinner/>
                           </td>
                         </tr> 
