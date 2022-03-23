@@ -17,9 +17,11 @@
 
 */
 import React, {Component} from "react";
-import Pagination from '../../components/Pagination/Pagination';
 import API from '../../api/api';
 import {Link} from "react-router-dom";
+
+import Pagination from '../../components/Pagination/Pagination';
+import Spinner from '../../components/Spinner/Spinner';
 
 // reactstrap components
 import {
@@ -40,10 +42,12 @@ class Users extends Component {
     page: 1,
     total: 0,
     perPage: 12,
-    pageRragneDisplayed: 3
+    pageRragneDisplayed: 3,
+    loading: false
   };
   
   getUsers = (page = 1) => {
+    this.setState({loading: true});
     
     var results = API.get('api/users?page=' + page + '&per_page=' + this.state.perPage)
       .then(results => {
@@ -55,6 +59,8 @@ class Users extends Component {
         this.setState({
           total: results.data.meta.total
         });
+        
+        this.setState({loading: false});
       });
   }
   
@@ -124,7 +130,16 @@ class Users extends Component {
                       </tr>
                     </thead>
                     <tbody>
-                      {users}
+                    {
+                      this.state.loading ?
+                        <tr>
+                          <td colspan="7">
+                            <Spinner/>
+                          </td>
+                        </tr> 
+                      :
+                        users
+                    }
                     </tbody>
                   </Table>
                 </CardBody>

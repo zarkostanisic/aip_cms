@@ -173,7 +173,7 @@ class NewUser extends Component {
                         onChange={this.handleChange}
                       />
                       <FormText color="muted">
-                        {this.validator.message('password', this.state.password, 'required|alpha')}
+                        {this.validator.message('lozinka', this.state.password, 'required|alpha')}
                         {this.state.error_message_password}
                       </FormText>
                     </FormGroup>
