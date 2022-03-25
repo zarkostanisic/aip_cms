@@ -28,11 +28,8 @@ class NewUser extends Component {
     first_name: '',
     last_name: '',
     username: '',
-    error_message_username: '',
     email: '',
-    error_message_email: '',
     password: '',
-    error_message_password: '',
     role_id: 3,
     image: [],
     team: false,
@@ -58,22 +55,25 @@ class NewUser extends Component {
           if(error.response.status == 422){
             const errors = error.response.data.errors;
             
-            (errors['username'] !== undefined) ?
-              this.setState({ error_message_username: errors['username'][0] }) :
-              this.setState({ error_message_username: '' });
-              
-            (errors['email'] !== undefined) ?
-              this.setState({ error_message_email: errors['email'][0] }) :
-              this.setState({ error_message_email: '' });
-                
-            (errors['password'] !== undefined) ?
-              this.setState({ error_message_password: errors['password'][0] }) :
-              this.setState({ error_message_password: '' });
+            for(var i in errors){
+              if(errors[i] !== undefined){
+                this.setState({[`error_message_${i}`]: errors[i][0]});
+              }
+            }
+            
+            const keys = ['first_name','last_name','username','email','password','role_id','image','team','about'];
+            
+            for(var i in keys){
+              console.log(errors[keys[i]]);
+              if(errors[keys[i]] === undefined){
+                this.setState({[`error_message_${keys[i]}`]: ''});
+              }
+            }
           }
         });
     } else {
       this.validator.showMessages();
-      
+    
       this.forceUpdate();
     }
   }
@@ -150,6 +150,7 @@ class NewUser extends Component {
                           />
                           <FormText color="muted">
                             {this.validator.message('ime', this.state.first_name, 'required|alpha')}
+                            {this.state?.error_message_first_name}
                           </FormText>
                         </FormGroup>
                       </Col>
@@ -164,6 +165,7 @@ class NewUser extends Component {
                         />
                         <FormText color="muted">
                           {this.validator.message('prezime', this.state.last_name, 'required|alpha')}
+                          {this.state?.error_message_last_name}
                         </FormText>
                       </FormGroup>
                       </Col>
@@ -180,7 +182,7 @@ class NewUser extends Component {
                           />
                           <FormText color="muted">
                             {this.validator.message('korisničko ime', this.state.username, 'required|alpha')}
-                            {this.state.error_message_username}
+                            {this.state?.error_message_username}
                           </FormText>
                         </FormGroup>
                       </Col>
@@ -196,7 +198,7 @@ class NewUser extends Component {
                           />
                           <FormText color="muted">
                             {this.validator.message('email', this.state.email, 'required|email')}
-                            {this.state.error_message_email}
+                            {this.state?.error_message_email}
                           </FormText>
                         </FormGroup>
                       </Col>
@@ -213,7 +215,7 @@ class NewUser extends Component {
                           />
                           <FormText color="muted">
                             {this.validator.message('lozinka', this.state.password, 'required|alpha')}
-                            {this.state.error_message_password}
+                            {this.state?.error_message_password}
                           </FormText>
                         </FormGroup>
                       </Col>
@@ -227,6 +229,9 @@ class NewUser extends Component {
                             {roles}
                           </Input>
                         </FormGroup>
+                        <FormText>
+                          {this.state.error_role_id}
+                        </FormText>
                       </Col>
                     </Row>
                     <Row>
@@ -240,6 +245,7 @@ class NewUser extends Component {
                             accept="image/png,image/jpg,image/jpeg"
                           ></Input>
                           {this.validator.message('slika', this.state.image, 'required')}
+                          {this.state.error_message_image}
                         </FormGroup>
                       </Col>
                     
@@ -253,6 +259,7 @@ class NewUser extends Component {
                             </span>
                           </Label>
                           {this.validator.message('tim', this.state.team, 'required|boolean')}
+                          {this.state.error_message_team}
                         </FormGroup>
                       </Col>
                     </Row>
@@ -265,6 +272,7 @@ class NewUser extends Component {
                             onChange={this.handleChange} 
                           />
                           {this.validator.message('tekst', this.state.about, 'required')}
+                          {this.state.error_message_about}
                         </FormGroup>
                       </Col>
                     </Row>
