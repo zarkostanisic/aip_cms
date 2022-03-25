@@ -52,6 +52,7 @@ class LoginPage extends Component {
   } 
   
   componentDidMount(){
+    document.body.style.background = "#f4f3ef";
     if(localStorage.token){
       this.handleGetUser();
     }
@@ -64,7 +65,6 @@ class LoginPage extends Component {
   }
   
   componentWillUnmount(){
-    
     document.body.classList.remove("login-page");
     document.body.classList.remove("sidebar-collapse");
   }
@@ -138,7 +138,7 @@ class LoginPage extends Component {
                       ></Input>
                     </InputGroup>
                     <InputGroup>
-                      {this.validator.message('username', this.state.username, 'required|alpha')}
+                      {this.validator.message('korisničko ime', this.state.username, 'required|alpha')}
                     </InputGroup>
                     <InputGroup
                       className={
@@ -162,7 +162,7 @@ class LoginPage extends Component {
                       ></Input>
                     </InputGroup>
                     <InputGroup>
-                      {this.validator.message('password', this.state.password, 'required|alpha_num')}
+                      {this.validator.message('lozinka', this.state.password, 'required|alpha_num')}
                     </InputGroup>
                     <InputGroup>
                     </InputGroup>
