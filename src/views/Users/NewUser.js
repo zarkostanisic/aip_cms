@@ -64,7 +64,6 @@ class NewUser extends Component {
             const keys = ['first_name','last_name','username','email','password','role_id','image','team','about'];
             
             for(var i in keys){
-              console.log(errors[keys[i]]);
               if(errors[keys[i]] === undefined){
                 this.setState({[`error_message_${keys[i]}`]: ''});
               }
@@ -230,7 +229,7 @@ class NewUser extends Component {
                           </Input>
                         </FormGroup>
                         <FormText>
-                          {this.state.error_role_id}
+                          {this.state?.error_message_role_id}
                         </FormText>
                       </Col>
                     </Row>
@@ -244,8 +243,10 @@ class NewUser extends Component {
                             onChange={this.fileSelectedHandler}
                             accept="image/png,image/jpg,image/jpeg"
                           ></Input>
-                          {this.validator.message('slika', this.state.image, 'required')}
-                          {this.state.error_message_image}
+                          <FormText color="muted">
+                            {this.validator.message('slika', this.state.image, 'required')}
+                            {this.state?.error_message_image}
+                          </FormText>
                         </FormGroup>
                       </Col>
                     
@@ -259,7 +260,7 @@ class NewUser extends Component {
                             </span>
                           </Label>
                           {this.validator.message('tim', this.state.team, 'required|boolean')}
-                          {this.state.error_message_team}
+                          {this.state?.error_message_team}
                         </FormGroup>
                       </Col>
                     </Row>
@@ -271,8 +272,10 @@ class NewUser extends Component {
                             value={this.state.about} 
                             onChange={this.handleChange} 
                           />
-                          {this.validator.message('tekst', this.state.about, 'required')}
-                          {this.state.error_message_about}
+                          <FormText color="muted">
+                            {this.validator.message('tekst', this.state.about, 'required')}
+                            {this.state?.error_message_about}
+                          </FormText>
                         </FormGroup>
                       </Col>
                     </Row>

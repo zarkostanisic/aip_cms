@@ -27,11 +27,8 @@ class EditUser extends Component {
     first_name: '',
     last_name: '',
     username: '',
-    error_message_username: '',
     email: '',
-    error_message_email: '',
     password: '',
-    error_message_password: '',
     role_id: 3,
     image: [],
     team: false,
@@ -68,17 +65,20 @@ class EditUser extends Component {
           if(error.response.status == 422){
             const errors = error.response.data.errors;
             
-            (errors['username'] !== undefined) ?
-              this.setState({ error_message_username: errors['username'][0] }) :
-              this.setState({ error_message_username: '' });
-              
-            (errors['email'] !== undefined) ?
-              this.setState({ error_message_email: errors['email'][0] }) :
-              this.setState({ error_message_email: '' });
-                
-            (errors['password'] !== undefined) ?
-              this.setState({ error_message_password: errors['password'][0] }) :
-              this.setState({ error_message_password: '' });
+            for(var i in errors){
+              if(errors[i] !== undefined){
+                this.setState({[`error_message_${i}`]: errors[i][0]});
+              }
+            }
+            
+            const keys = ['first_name','last_name','username','email','password','role_id','image','team','about'];
+            
+            for(var i in keys){
+              console.log(errors[keys[i]]);
+              if(errors[keys[i]] === undefined){
+                this.setState({[`error_message_${keys[i]}`]: ''});
+              }
+            }
           }
         });
     } else {
@@ -172,6 +172,7 @@ class EditUser extends Component {
                         />
                         <FormText color="muted">
                           {this.validator.message('ime', this.state.first_name, 'required|alpha')}
+                          {this.state?.error_message_first_name}
                         </FormText>
                       </FormGroup>
                       </Col>
@@ -186,6 +187,7 @@ class EditUser extends Component {
                           />
                           <FormText color="muted">
                             {this.validator.message('prezime', this.state.last_name, 'required|alpha')}
+                            {this.state?.error_message_last_name}
                           </FormText>
                         </FormGroup>
                       </Col>
@@ -202,7 +204,7 @@ class EditUser extends Component {
                           />
                           <FormText color="muted">
                             {this.validator.message('korisničko ime', this.state.username, 'required|alpha')}
-                            {this.state.error_message_username}
+                            {this.state?.error_message_username}
                           </FormText>
                         </FormGroup>
                       </Col>
@@ -218,7 +220,7 @@ class EditUser extends Component {
                           />
                           <FormText color="muted">
                             {this.validator.message('email', this.state.email, 'required|email')}
-                            {this.state.error_message_email}
+                            {this.state?.error_message_email}
                           </FormText>
                         </FormGroup>
                       </Col>
@@ -234,7 +236,7 @@ class EditUser extends Component {
                             onChange={this.handleChange}
                           />
                           <FormText color="muted">
-                            {this.state.error_message_password}
+                            {this.state?.error_message_password}
                           </FormText>
                         </FormGroup>
                       </Col>
@@ -247,6 +249,9 @@ class EditUser extends Component {
                           >
                             {roles}
                           </Input>
+                          <FormText>
+                            {this.state?.error_message_role_id}
+                          </FormText>
                         </FormGroup>
                       </Col>
                     </Row>
@@ -260,6 +265,9 @@ class EditUser extends Component {
                             onChange={this.fileSelectedHandler}
                             accept="image/png,image/jpg,image/jpeg"
                           ></Input>
+                          <FormText color="muted">
+                            {this.state?.error_message_image}
+                          </FormText>
                         </FormGroup>
                       </Col>
                     
@@ -273,6 +281,7 @@ class EditUser extends Component {
                             </span>
                           </Label>
                           {this.validator.message('tim', this.state.team, 'required|boolean')}
+                          {this.state?.error_message_team}
                         </FormGroup>
                       </Col>
                     </Row>
@@ -284,7 +293,10 @@ class EditUser extends Component {
                             value={this.state.about} 
                             onChange={this.handleChange} 
                           />
-                          {this.validator.message('tekst', this.state.about, 'required')}
+                          <FormText color="muted">
+                            {this.validator.message('tekst', this.state.about, 'required')}
+                            {this.state?.error_message_about}
+                          </FormText>
                         </FormGroup>
                       </Col>
                     </Row>
