@@ -20,6 +20,7 @@ import {
   InputGroup,
   Container,
   Col,
+  FormText
 } from "reactstrap";
 
 import SimpleReactValidator from 'simple-react-validator';
@@ -137,9 +138,9 @@ class LoginPage extends Component {
                         onBlur={() => this.setUsernameFocus(false)}
                       ></Input>
                     </InputGroup>
-                    <InputGroup>
+                    <FormText>
                       {this.validator.message('korisničko ime', this.state.username, 'required|alpha')}
-                    </InputGroup>
+                    </FormText>
                     <InputGroup
                       className={
                           "no-border input-lg" +
@@ -161,9 +162,9 @@ class LoginPage extends Component {
                         onBlur={() => this.setPasswordFocus(false)}
                       ></Input>
                     </InputGroup>
-                    <InputGroup>
+                    <FormText color="muted">
                       {this.validator.message('lozinka', this.state.password, 'required|alpha_num')}
-                    </InputGroup>
+                    </FormText>
                     <InputGroup>
                     </InputGroup>
                   </CardBody>
