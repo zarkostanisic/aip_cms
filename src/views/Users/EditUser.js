@@ -99,9 +99,9 @@ class EditUser extends Component {
   
   fileSelectedHandler = event => {
       const image = event.target.files[0];
+      const extensions = ['image/png', 'image/jpg', 'image/jpg'];
       
-      if(image.type.includes('image/png')){
-        
+      if(extensions.includes(image.type)){
         fileToBase64(image).then(result => {
             const newFiles = [...this.state.image, result];
             this.setState({ image: newFiles});
