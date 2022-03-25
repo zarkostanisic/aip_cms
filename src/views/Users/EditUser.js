@@ -15,12 +15,13 @@ import {
   Card,
   CardHeader,
   CardTitle,
-  CardBody
+  CardBody,
+  Form
 } from "reactstrap";
 
 import {Button} from "reactstrap";
 
-class EditCategory extends Component {
+class EditUser extends Component {
   state = {
     roles: [],
     first_name: '',
@@ -49,6 +50,7 @@ class EditCategory extends Component {
   
   handleUpdate = () => {
     if (this.validator.allValid()) {
+      
       var results = API.patch('api/users/' + this.props.match.params.id, {
         first_name: this.state.first_name,
         last_name: this.state.last_name,
@@ -98,10 +100,17 @@ class EditCategory extends Component {
   fileSelectedHandler = event => {
       const image = event.target.files[0];
       
-      fileToBase64(image).then(result => {
-          const newFiles = [...this.state.image, result];
-          this.setState({ image: newFiles});
-      });
+      if(image.type.includes('image/png')){
+        
+        fileToBase64(image).then(result => {
+            const newFiles = [...this.state.image, result];
+            this.setState({ image: newFiles});
+        });
+      }else{
+        event.target.value = '';
+        this.setState({image: []});
+        alert('Format slike mora biti jpg,jpeg ili png!');
+      }
   };
   
   getUser = () => {
@@ -144,124 +153,149 @@ class EditCategory extends Component {
       <>
         <div className="content">
           <Row>
-            <Col md="6">
-              <Card>
+            <Col md="8">
+              <Card className="card-user">
                 <CardHeader>
-                  <CardTitle tag="h4">
-                    Izmena korisnika
-                  </CardTitle>
+                  <CardTitle tag="h5">Izmena korisnika</CardTitle>
                 </CardHeader>
                 <CardBody>
-                  <FormGroup>
-                    <Label for="first_name">Ime</Label>
-                    <Input
-                      type="first_name"
-                      name="first_name"
-                      value={this.state.first_name} 
-                      onChange={this.handleChange}
-                    />
-                    <FormText color="muted">
-                      {this.validator.message('ime', this.state.first_name, 'required|alpha')}
-                      {this.state.error_message_first_name}
-                    </FormText>
-                  </FormGroup>
-                  
-                  <FormGroup>
-                    <Label for="last_name">Prezime</Label>
-                    <Input
-                      type="text"
-                      name="last_name"
-                      value={this.state.last_name} 
-                      onChange={this.handleChange}
-                    />
-                    <FormText color="muted">
-                      {this.validator.message('prezime', this.state.last_name, 'required|alpha')}
-                    </FormText>
-                  </FormGroup>
-                  
-                  <FormGroup>
-                    <Label for="username">Korisničko ime</Label>
-                    <Input
-                      type="text"
-                      name="username"
-                      value={this.state.username} 
-                      onChange={this.handleChange}
-                    />
-                    <FormText color="muted">
-                      {this.validator.message('korisničko ime', this.state.username, 'required|alpha')}
-                      {this.state.error_message_username}
-                    </FormText>
-                  </FormGroup>
-                  
-                  <FormGroup>
-                    <Label for="email">Email</Label>
-                    <Input
-                      type="text"
-                      name="email"
-                      value={this.state.email} 
-                      onChange={this.handleChange}
-                    />
-                    <FormText color="muted">
-                      {this.validator.message('email', this.state.email, 'required|email')}
-                      {this.state.error_message_email}
-                    </FormText>
-                  </FormGroup>
-                  
-                  <FormGroup>
-                    <Label for="password">Lozinka</Label>
-                    <Input
-                      type="text"
-                      name="password"
-                      value={this.state.password} 
-                      onChange={this.handleChange}
-                    />
-                    <FormText color="muted">
-                      {this.state.error_message_password}
-                    </FormText>
-                  </FormGroup>
-                  
-                  <FormGroup>
-                    <Label for="role_id">Uloga</Label>
-                    <Input type="select"
-                      name="role_id" value={this.state.role_id} 
-                      onChange={this.handleChange}
-                    >
-                      {roles}
-                    </Input>
-                  </FormGroup>
-                  
-                  <FormGroup check>
-                    <Label check>
-                      <Input type="checkbox" id="team" name="team" onChange={this.handleCheckbox} checked={this.state.team}/>{' '}
-                      Tim
-                      <span className="form-check-sign">
-                        <span className="check"></span>
-                      </span>
-                    </Label>
-                    {this.validator.message('tim', this.state.team, 'required|boolean')}
-                  </FormGroup>
-                  
-                  <FormGroup>
-                    <Label for="role_id">Avatar</Label>
-                    <Input type="file"
-                      name="image" 
-                      id="image"
-                      onChange={this.fileSelectedHandler}
-                    ></Input>
-                  </FormGroup>
-                  
-                  <FormGroup>
-                    <Label for="text">Tekst</Label>
-                    <Input type="textarea" name="about" 
-                      value={this.state.about} 
-                      onChange={this.handleChange} 
-                    />
-                    {this.validator.message('tekst', this.state.about, 'required')}
-                  </FormGroup>
-                  
-                  <Button color="primary" type="button" onClick={() => this.handleUpdate()}>
-                    Sačuvaj
-                  </Button>
+                  <Form>
+                    <Row>
+                      <Col md="6">
+                      <FormGroup>
+                        <Label for="first_name">Ime</Label>
+                        <Input
+                          type="first_name"
+                          name="first_name"
+                          value={this.state.first_name} 
+                          onChange={this.handleChange}
+                        />
+                        <FormText color="muted">
+                          {this.validator.message('ime', this.state.first_name, 'required|alpha')}
+                        </FormText>
+                      </FormGroup>
+                      </Col>
+                      <Col md="6">
+                        <FormGroup>
+                          <Label for="last_name">Prezime</Label>
+                          <Input
+                            type="text"
+                            name="last_name"
+                            value={this.state.last_name} 
+                            onChange={this.handleChange}
+                          />
+                          <FormText color="muted">
+                            {this.validator.message('prezime', this.state.last_name, 'required|alpha')}
+                          </FormText>
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col md="6">
+                        <FormGroup>
+                          <Label for="username">Korisničko ime</Label>
+                          <Input
+                            type="text"
+                            name="username"
+                            value={this.state.username} 
+                            onChange={this.handleChange}
+                          />
+                          <FormText color="muted">
+                            {this.validator.message('korisničko ime', this.state.username, 'required|alpha')}
+                            {this.state.error_message_username}
+                          </FormText>
+                        </FormGroup>
+                      </Col>
+                      
+                      <Col md="6">
+                        <FormGroup>
+                          <Label for="email">Email</Label>
+                          <Input
+                            type="text"
+                            name="email"
+                            value={this.state.email} 
+                            onChange={this.handleChange}
+                          />
+                          <FormText color="muted">
+                            {this.validator.message('email', this.state.email, 'required|email')}
+                            {this.state.error_message_email}
+                          </FormText>
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col md="6">
+                        <FormGroup>
+                          <Label for="password">Lozinka</Label>
+                          <Input
+                            type="text"
+                            name="password"
+                            value={this.state.password} 
+                            onChange={this.handleChange}
+                          />
+                          <FormText color="muted">
+                            {this.state.error_message_password}
+                          </FormText>
+                        </FormGroup>
+                      </Col>
+                      <Col md="6">
+                        <FormGroup>
+                          <Label for="role_id">Uloga</Label>
+                          <Input type="select"
+                            name="role_id" value={this.state.role_id} 
+                            onChange={this.handleChange}
+                          >
+                            {roles}
+                          </Input>
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col md="10">
+                        <FormGroup>
+                          <Label for="role_id">Avatar</Label>
+                          <Input type="file"
+                            name="image" 
+                            id="image"
+                            onChange={this.fileSelectedHandler}
+                          ></Input>
+                        </FormGroup>
+                      </Col>
+                    
+                      <Col className="pt-4" md="2">
+                        <FormGroup check>
+                          <Label check>
+                            <Input type="checkbox" id="team" name="team" onChange={this.handleCheckbox} checked={this.state.team}/>{' '}
+                            Tim
+                            <span className="form-check-sign">
+                              <span className="check"></span>
+                            </span>
+                          </Label>
+                          {this.validator.message('tim', this.state.team, 'required|boolean')}
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col md="12">
+                        <FormGroup>
+                          <Label for="text">Tekst</Label>
+                          <Input type="textarea" name="about" 
+                            value={this.state.about} 
+                            onChange={this.handleChange} 
+                          />
+                          {this.validator.message('tekst', this.state.about, 'required')}
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <div className="update ml-auto mr-auto">
+                        
+                        <Button color="primary" type="button" onClick={() => this.handleUpdate()}>
+                          Sačuvaj
+                        </Button>
+                      </div>
+                    </Row>
+                  </Form>
                 </CardBody>
               </Card>
             </Col>
@@ -272,4 +306,4 @@ class EditCategory extends Component {
   }
 };
 
-export default EditCategory;
+export default EditUser;
