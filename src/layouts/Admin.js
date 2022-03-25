@@ -24,6 +24,7 @@ import { Route, Switch, useLocation } from "react-router-dom";
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import Footer from "components/Footer/Footer.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
+import HandleLogin from '../views/auth/HandleLogin';
 
 import routes from "routes.js";
 
@@ -58,6 +59,7 @@ function Dashboard(props) {
   };
   return (
     <div className="wrapper">
+      <HandleLogin {...props}/>
       <Sidebar
         {...props}
         routes={routes}
