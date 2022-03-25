@@ -104,7 +104,7 @@ class LoginPage extends Component {
       <>
         <div className="content">
           <Container>
-            <Col className="ml-auto mr-auto mt-5" md="8">
+            <Col className="ml-auto mr-auto mt-5" md="4">
               <Card className="card-login">
                 <Form action="" className="form" method="">
                   <CardHeader className="text-center">
