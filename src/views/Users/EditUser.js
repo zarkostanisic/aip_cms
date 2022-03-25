@@ -258,6 +258,7 @@ class EditUser extends Component {
                             name="image" 
                             id="image"
                             onChange={this.fileSelectedHandler}
+                            accept="image/png,image/jpg,image/jpeg"
                           ></Input>
                         </FormGroup>
                       </Col>

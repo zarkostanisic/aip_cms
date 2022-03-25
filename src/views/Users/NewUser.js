@@ -237,6 +237,7 @@ class NewUser extends Component {
                             name="image" 
                             id="image"
                             onChange={this.fileSelectedHandler}
+                            accept="image/png,image/jpg,image/jpeg"
                           ></Input>
                           {this.validator.message('slika', this.state.image, 'required')}
                         </FormGroup>
