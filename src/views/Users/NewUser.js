@@ -38,7 +38,7 @@ class NewUser extends Component {
   
   handleSave = () => {
     if (this.validator.allValid()) {
-      var results = API.post('api/users', {
+      let results = API.post('api/users', {
         first_name: this.state.first_name,
         last_name: this.state.last_name,
         username: this.state.username,
@@ -55,7 +55,7 @@ class NewUser extends Component {
           if(error.response.status == 422){
             const errors = error.response.data.errors;
             
-            for(var i in errors){
+            for(let i in errors){
               if(errors[i] !== undefined){
                 this.setState({[`error_message_${i}`]: errors[i][0]});
               }
@@ -63,7 +63,7 @@ class NewUser extends Component {
             
             const keys = ['first_name','last_name','username','email','password','role_id','image','team','about'];
             
-            for(var i in keys){
+            for(let i in keys){
               if(errors[keys[i]] === undefined){
                 this.setState({[`error_message_${keys[i]}`]: ''});
               }
@@ -88,7 +88,7 @@ class NewUser extends Component {
   
   getRoles = () => {
     
-    var result = API.get('api/app/roles')
+    let result = API.get('api/app/roles')
       .then(result => {
         this.setState({
           roles: result.data.data

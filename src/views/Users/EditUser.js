@@ -37,7 +37,7 @@ class EditUser extends Component {
   
   getRoles = () => {
     
-    var result = API.get('api/app/roles')
+    let result = API.get('api/app/roles')
       .then(result => {
         this.setState({
           roles: result.data.data
@@ -48,7 +48,7 @@ class EditUser extends Component {
   handleUpdate = () => {
     if (this.validator.allValid()) {
       
-      var results = API.patch('api/users/' + this.props.match.params.id, {
+      let results = API.patch('api/users/' + this.props.match.params.id, {
         first_name: this.state.first_name,
         last_name: this.state.last_name,
         username: this.state.username,
@@ -65,7 +65,7 @@ class EditUser extends Component {
           if(error.response.status == 422){
             const errors = error.response.data.errors;
             
-            for(var i in errors){
+            for(let i in errors){
               if(errors[i] !== undefined){
                 this.setState({[`error_message_${i}`]: errors[i][0]});
               }
@@ -73,7 +73,7 @@ class EditUser extends Component {
             
             const keys = ['first_name','last_name','username','email','password','role_id','image','team','about'];
             
-            for(var i in keys){
+            for(let i in keys){
               console.log(errors[keys[i]]);
               if(errors[keys[i]] === undefined){
                 this.setState({[`error_message_${keys[i]}`]: ''});
@@ -116,7 +116,7 @@ class EditUser extends Component {
   getUser = () => {
     
     if(this.props.match.params.id){
-      var result = API.get('api/users/' + this.props.match.params.id)
+      let result = API.get('api/users/' + this.props.match.params.id)
         .then(result => {
           this.setState({
             first_name: result.data.data.first_name,

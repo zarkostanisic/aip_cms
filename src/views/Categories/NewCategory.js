@@ -27,7 +27,7 @@ class NewCategory extends Component {
   
   handleSave = () => {
     if (this.validator.allValid()) {
-      var results = API.post('api/categories', {name: this.state.name})
+      let results = API.post('api/categories', {name: this.state.name})
         .then(result => {
           this.props.history.push('/admin/categories');
         }).catch((error) => {

@@ -27,7 +27,7 @@ class EditCategory extends Component {
   
   handleUpdate = () => {
     if (this.validator.allValid()) {
-      var results = API.patch('api/categories/' + this.props.match.params.id, {name: this.state.name})
+      let results = API.patch('api/categories/' + this.props.match.params.id, {name: this.state.name})
         .then(result => {
           this.props.history.push('/admin/categories');
         }).catch((error) => {
@@ -54,7 +54,7 @@ class EditCategory extends Component {
   getCategory = () => {
     
     if(this.props.match.params.id){
-      var result = API.get('api/categories/' + this.props.match.params.id)
+      let result = API.get('api/categories/' + this.props.match.params.id)
         .then(result => {
           console.log(result);
           this.setState({

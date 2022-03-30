@@ -49,7 +49,7 @@ class Categories extends Component {
   getCategories = (page = 1) => {
     this.setState({loading: true});
     
-    var results = API.get('api/categories?page=' + page + '&per_page=' + this.state.perPage)
+    let results = API.get('api/categories?page=' + page + '&per_page=' + this.state.perPage)
       .then(results => {
         
         this.setState({
@@ -79,7 +79,7 @@ class Categories extends Component {
   
   handleDelete(id){
     if (window.confirm("Da li ste sigurni da želite da obrišete kategoriju?") == true) {
-      var results = API.delete('api/categories/' + id)
+      let results = API.delete('api/categories/' + id)
         .then(results => {
           this.getCategories(1);
         });
