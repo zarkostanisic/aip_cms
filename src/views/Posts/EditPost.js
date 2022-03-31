@@ -122,6 +122,8 @@ class EditPost extends Component {
           });
         }
       }
+      
+      event.target.value = '';
   };
   
   getPost = () => {

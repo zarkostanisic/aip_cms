@@ -118,6 +118,8 @@ class NewPost extends Component {
           });
         }
       }
+      
+      event.target.value = '';
   };
   
   componentWillMount() {
