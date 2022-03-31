@@ -157,9 +157,11 @@ class NewPost extends Component {
           <Card >
             <CardBody>
               <div className="postImg" style={{ backgroundImage: `url('${image}')` }}></div>
-              <Button color="primary" type="button" onClick={() => this.handleRemoveImage('new', key)}>
-                Ukloni
-              </Button>
+              <div className="update ml-auto mr-auto text-center">
+                <Button color="primary" type="button" onClick={() => this.handleRemoveImage('new', key)}>
+                  Ukloni
+                </Button>
+              </div>
             </CardBody>
           </Card>
         </Col>
