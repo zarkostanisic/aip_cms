@@ -225,10 +225,12 @@ class NewUser extends Component {
                             name="role_id" value={this.state.role_id} 
                             onChange={this.handleChange}
                           >
+                            <option value="">Izaberi</option>
                             {roles}
                           </Input>
                         </FormGroup>
                         <FormText>
+                          {this.validator.message('uloga', this.state.role_id, 'required')}
                           {this.state?.error_message_role_id}
                         </FormText>
                       </Col>

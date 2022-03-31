@@ -92,6 +92,10 @@ class NewPost extends Component {
               }
             }
           }
+          
+          if(this.state.error_message_images !== undefined){
+            this.toggle('images');
+          }
         });
     } else {
       this.validator.showMessages();
@@ -217,6 +221,7 @@ class NewPost extends Component {
                                 name="category_id" value={this.state.category_id} 
                                 onChange={this.handleChange}
                               >
+                                <option value=''>Izaberi</option>
                                 {categories}
                               </Input>
                               <FormText>
