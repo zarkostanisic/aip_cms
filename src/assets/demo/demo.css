@@ -205,3 +205,29 @@
   outline: none;
   display: none;
 }
+
+/*CK Editor custom style*/
+
+.ck-editor__editable_inline {
+  min-height: 25rem;
+}
+
+.ck.ck-editor__editable_inline {
+  border: 1px solid #c8ced3 !important;
+}
+
+.ck.ck-editor__editable_inline:focus {
+  border-color: #958bef !important;
+  box-shadow: 0 0 0 0.2rem rgba(49, 34, 210, 0.25) !important;
+}
+
+.ck.ck-dropdown .ck-dropdown__arrow {
+  z-index: unset !important;
+}
+
+.postImg{
+  height: 8rem;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
