@@ -129,7 +129,7 @@ class NewPost extends Component {
             <Col md="8">
               <Card className="card-post">
                 <CardHeader>
-                  <CardTitle tag="h5">Izmena objave</CardTitle>
+                  <CardTitle tag="h5">Nova objava</CardTitle>
                 </CardHeader>
                 <CardBody>
                   <Form>
