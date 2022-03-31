@@ -29,7 +29,7 @@ class EditUser extends Component {
     username: '',
     email: '',
     password: '',
-    role_id: 3,
+    role_id: '',
     image: [],
     team: false,
     about: ''
