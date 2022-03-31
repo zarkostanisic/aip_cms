@@ -25,13 +25,20 @@ import Maps from "views/Map.js";
 import UserPage from "views/User.js";
 import UpgradeToPro from "views/Upgrade.js";
 
+// Categories
 import Categories from "views/Categories/Categories.js";
 import NewCategory from "views/Categories/NewCategory.js";
 import EditCategory from "views/Categories/EditCategory.js";
 
+// Users
 import Users from "views/Users/Users.js";
 import NewUser from "views/Users/NewUser.js";
 import EditUser from "views/Users/EditUser.js";
+
+// Blog
+import Posts from "views/Posts/Posts.js";
+import EditPost from "views/Posts/EditPost.js";
+import NewPost from "views/Posts/NewPost.js";
 
 var routes = [
   {
@@ -85,6 +92,29 @@ var routes = [
     name: "Korisnici",
     icon: "nc-icon nc-single-02",
     component: Users,
+    layout: "/admin",
+  },
+  {
+    path: "/posts/edit/:id",
+    name: "Izmena objave",
+    icon: "nc-icon nc-bank",
+    component: EditPost,
+    layout: "/admin",
+    hidden: true
+  },
+  {
+    path: "/posts/new",
+    name: "Izmena objave",
+    icon: "nc-icon nc-bank",
+    component: NewPost,
+    layout: "/admin",
+    hidden: true
+  },
+  {
+    path: "/posts",
+    name: "Blog",
+    icon: "nc-icon nc-single-02",
+    component: Posts,
     layout: "/admin",
   },
   // {
