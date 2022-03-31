@@ -74,7 +74,6 @@ class EditUser extends Component {
             const keys = ['first_name','last_name','username','email','password','role_id','image','team','about'];
             
             for(let i in keys){
-              console.log(errors[keys[i]]);
               if(errors[keys[i]] === undefined){
                 this.setState({[`error_message_${keys[i]}`]: ''});
               }
@@ -258,7 +257,7 @@ class EditUser extends Component {
                     <Row>
                       <Col md="10">
                         <FormGroup>
-                          <Label for="role_id">Avatar</Label>
+                          <Label for="image">Avatar</Label>
                           <Input type="file"
                             name="image" 
                             id="image"

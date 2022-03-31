@@ -236,7 +236,7 @@ class NewUser extends Component {
                     <Row>
                       <Col md="10">
                         <FormGroup>
-                          <Label for="role_id">Avatar</Label>
+                          <Label for="image">Avatar</Label>
                           <Input type="file"
                             name="image" 
                             id="image"
