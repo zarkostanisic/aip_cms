@@ -37,6 +37,7 @@ class NewPost extends Component {
     text: '',
     category_id: '',
     images: [],
+    image: [],
     activeTab: 'info'
   }
   
@@ -72,7 +73,8 @@ class NewPost extends Component {
         subtitle: this.state.subtitle,
         text: this.state.text,
         category_id: this.state.category_id,
-        images: this.state.images
+        images: this.state.images,
+        image: this.state.image
       })
         .then(result => {
           this.props.history.push('/admin/posts');
@@ -86,17 +88,13 @@ class NewPost extends Component {
               }
             }
             
-            const keys = ['title', 'subtitle', 'text', 'about', 'images'];
+            const keys = ['title', 'subtitle', 'text', 'about', 'images', 'image'];
             
             for(let i in keys){
               if(errors[keys[i]] === undefined){
                 this.setState({[`error_message_${keys[i]}`]: ''});
               }
             }
-          }
-          
-          if(this.state.error_message_images !== undefined){
-            this.toggle('images');
           }
         });
     } else {
@@ -126,6 +124,22 @@ class NewPost extends Component {
       }
       
       event.target.value = '';
+  };
+  
+  oneFileSelectedHandler = event => {
+      const image = event.target.files[0];
+      const extensions = ['image/png', 'image/jpg', 'image/jpg'];
+      
+      if(extensions.includes(image.type)){
+        fileToBase64(image).then(result => {
+            const newFiles = [...this.state.image, result];
+            this.setState({ image: newFiles});
+        });
+      }else{
+        event.target.value = '';
+        this.setState({image: []});
+        alert('Format slike mora biti jpg,jpeg ili png!');
+      }
   };
   
   componentWillMount() {
@@ -202,7 +216,7 @@ class NewPost extends Component {
                     <Col md="12" className="pt-5">
                       <Form>
                         <Row>
-                          <Col md="8">
+                          <Col md="12">
                             <FormGroup>
                               <Label for="title">Naslov</Label>
                               <Input
@@ -214,6 +228,25 @@ class NewPost extends Component {
                               <FormText color="muted">
                                 {this.validator.message('naslov', this.state.title, 'required|alpha_space')}
                                 {this.state?.error_message_title}
+                              </FormText>
+                            </FormGroup>
+                          </Col>
+                          
+                        </Row>
+                        
+                        <Row>
+                          <Col md="8">
+                            <FormGroup>
+                              <Label for="subtitle">Podnaslov</Label>
+                              <Input
+                                type="subtitle"
+                                name="subtitle"
+                                value={this.state.subtitle} 
+                                onChange={this.handleChange}
+                              />
+                              <FormText color="muted">
+                                {this.validator.message('podnaslov', this.state.subtitle, 'required|alpha_space')}
+                                {this.state?.error_message_subtitle}
                               </FormText>
                             </FormGroup>
                           </Col>
@@ -236,18 +269,18 @@ class NewPost extends Component {
                         </Row>
                         
                         <Row>
-                          <Col md="8">
+                          <Col md="12">
                             <FormGroup>
-                              <Label for="subtitle">Podnaslov</Label>
-                              <Input
-                                type="subtitle"
-                                name="subtitle"
-                                value={this.state.subtitle} 
-                                onChange={this.handleChange}
-                              />
+                              <Label for="image">Slika</Label>
+                              <Input type="file"
+                                name="image" 
+                                id="image"
+                                onChange={this.oneFileSelectedHandler}
+                                accept="image/png,image/jpg,image/jpeg"
+                              ></Input>
                               <FormText color="muted">
-                                {this.validator.message('podnaslov', this.state.subtitle, 'required|alpha_space')}
-                                {this.state?.error_message_subtitle}
+                                {this.validator.message('slika', this.state.image, 'required')}
+                                {this.state?.error_message_image}
                               </FormText>
                             </FormGroup>
                           </Col>

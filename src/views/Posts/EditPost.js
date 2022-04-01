@@ -37,6 +37,7 @@ class EditPost extends Component {
     text: '',
     category_id: '',
     images: [],
+    image: [],
     old_images: [],
     images_to_remove: [],
     activeTab: 'info'
@@ -76,6 +77,7 @@ class EditPost extends Component {
         text: this.state.text,
         category_id: this.state.category_id,
         images: this.state.images,
+        image: this.state.image,
         images_to_remove: this.state.images_to_remove
       })
         .then(result => {
@@ -90,7 +92,7 @@ class EditPost extends Component {
               }
             }
             
-            const keys = ['title', 'subtitle', 'text', 'about', 'images'];
+            const keys = ['title', 'subtitle', 'text', 'about', 'images', 'image'];
             
             for(let i in keys){
               if(errors[keys[i]] === undefined){
@@ -126,6 +128,22 @@ class EditPost extends Component {
       }
       
       event.target.value = '';
+  };
+  
+  oneFileSelectedHandler = event => {
+      const image = event.target.files[0];
+      const extensions = ['image/png', 'image/jpg', 'image/jpg'];
+      
+      if(extensions.includes(image.type)){
+        fileToBase64(image).then(result => {
+            const newFiles = [...this.state.image, result];
+            this.setState({ image: newFiles});
+        });
+      }else{
+        event.target.value = '';
+        this.setState({image: []});
+        alert('Format slike mora biti jpg,jpeg ili png!');
+      }
   };
   
   getPost = () => {
@@ -294,6 +312,24 @@ class EditPost extends Component {
                               </Input>
                               <FormText>
                                 {this.state?.error_message_category_id}
+                              </FormText>
+                            </FormGroup>
+                          </Col>
+                        </Row>
+                        
+                        <Row>
+                          <Col md="12">
+                            <FormGroup>
+                              <Label for="image">Slika</Label>
+                              <Input type="file"
+                                name="image" 
+                                id="image"
+                                onChange={this.oneFileSelectedHandler}
+                                accept="image/png,image/jpg,image/jpeg"
+                              ></Input>
+                              <FormText color="muted">
+                                {this.validator.message('slika', this.state.image, 'required')}
+                                {this.state?.error_message_image}
                               </FormText>
                             </FormGroup>
                           </Col>
