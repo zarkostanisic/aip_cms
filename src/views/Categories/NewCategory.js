@@ -79,7 +79,7 @@ class NewCategory extends Component {
                         onChange={this.handleChange}
                       />
                       <FormText color="muted">
-                        {this.validator.message('naziv', this.state.name, 'required|alpha')}
+                        {this.validator.message('naziv', this.state.name, 'required|string')}
                         {this.state.error_message_name}
                       </FormText>
                     </FormGroup>

@@ -148,7 +148,7 @@ class NewUser extends Component {
                             onChange={this.handleChange}
                           />
                           <FormText color="muted">
-                            {this.validator.message('ime', this.state.first_name, 'required|alpha')}
+                            {this.validator.message('ime', this.state.first_name, 'required|string')}
                             {this.state?.error_message_first_name}
                           </FormText>
                         </FormGroup>
@@ -163,7 +163,7 @@ class NewUser extends Component {
                           onChange={this.handleChange}
                         />
                         <FormText color="muted">
-                          {this.validator.message('prezime', this.state.last_name, 'required|alpha')}
+                          {this.validator.message('prezime', this.state.last_name, 'required|string')}
                           {this.state?.error_message_last_name}
                         </FormText>
                       </FormGroup>
@@ -180,7 +180,7 @@ class NewUser extends Component {
                             onChange={this.handleChange}
                           />
                           <FormText color="muted">
-                            {this.validator.message('korisničko ime', this.state.username, 'required|alpha')}
+                            {this.validator.message('korisničko ime', this.state.username, 'required|alpha_num')}
                             {this.state?.error_message_username}
                           </FormText>
                         </FormGroup>
@@ -207,13 +207,13 @@ class NewUser extends Component {
                         <FormGroup>
                           <Label for="password">Lozinka</Label>
                           <Input
-                            type="text"
+                            type="password"
                             name="password"
                             value={this.state.password} 
                             onChange={this.handleChange}
                           />
                           <FormText color="muted">
-                            {this.validator.message('lozinka', this.state.password, 'required|alpha')}
+                            {this.validator.message('lozinka', this.state.password, 'required|alpha_num')}
                             {this.state?.error_message_password}
                           </FormText>
                         </FormGroup>
