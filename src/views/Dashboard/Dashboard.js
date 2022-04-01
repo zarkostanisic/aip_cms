@@ -51,7 +51,7 @@ class Dashboard extends Component {
                   <Row>
                     <Col md="4" xs="5">
                       <div className="icon-big text-center icon-warning">
-                        <i className="nc-icon nc-globe text-warning" />
+                        <i className="nc-icon nc-camera-compact text-warning" />
                       </div>
                     </Col>
                     <Col md="8" xs="7">
@@ -74,7 +74,7 @@ class Dashboard extends Component {
                   <Row>
                     <Col md="4" xs="5">
                       <div className="icon-big text-center icon-warning">
-                        <i className="nc-icon nc-money-coins text-success" />
+                        <i className="nc-icon nc-chat-33 text-success" />
                       </div>
                     </Col>
                     <Col md="8" xs="7">
@@ -97,7 +97,7 @@ class Dashboard extends Component {
                   <Row>
                     <Col md="4" xs="5">
                       <div className="icon-big text-center icon-warning">
-                        <i className="nc-icon nc-vector text-danger" />
+                        <i className="nc-icon nc-image text-danger" />
                       </div>
                     </Col>
                     <Col md="8" xs="7">
@@ -120,7 +120,7 @@ class Dashboard extends Component {
                   <Row>
                     <Col md="4" xs="5">
                       <div className="icon-big text-center icon-warning">
-                        <i className="nc-icon nc-favourite-28 text-primary" />
+                        <i className="nc-icon nc-single-02 text-primary" />
                       </div>
                     </Col>
                     <Col md="8" xs="7">

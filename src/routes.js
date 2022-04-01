@@ -113,7 +113,7 @@ var routes = [
   {
     path: "/posts",
     name: "Blog",
-    icon: "nc-icon nc-single-02",
+    icon: "nc-icon nc-camera-compact",
     component: Posts,
     layout: "/admin",
   },
