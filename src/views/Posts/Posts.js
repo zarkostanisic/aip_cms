@@ -97,7 +97,7 @@ class Posts extends Component {
           <td>{post.user.username}</td>
           <td>{post.created_at}</td>
           <td>
-            <Button to={'/admin/posts/edit/' + post.id} color="info" className="ml-2 mt-1 mb-1" tag={Link}>Izmeni</Button>
+            <Button to={'/admin/posts/edit/' + post.id} color="warning" className="ml-2 mt-1 mb-1" tag={Link}>Izmeni</Button>
             <Button color="danger" className="ml-2 mt-1 mb-1" onClick={() => this.handleDelete(post.id)}>Obriši</Button>
           </td>
         </tr>

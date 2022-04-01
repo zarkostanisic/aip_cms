@@ -97,7 +97,7 @@ class Users extends Component {
           <td>{user.email}</td>
           <td>{user.role.name}</td>
           <td>
-            <Button to={'/admin/users/edit/' + user.id} color="info" className="ml-2 mt-1 mb-1" tag={Link}>Izmeni</Button>
+            <Button to={'/admin/users/edit/' + user.id} color="warning" className="ml-2 mt-1 mb-1" tag={Link}>Izmeni</Button>
             <Button color="danger" className="ml-2 mt-1 mb-1" onClick={() => this.handleDelete(user.id)}>Obriši</Button>
           </td>
         </tr>
