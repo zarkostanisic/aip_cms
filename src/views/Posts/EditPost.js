@@ -277,7 +277,7 @@ class EditPost extends Component {
                                 onChange={this.handleChange}
                               />
                               <FormText color="muted">
-                                {this.validator.message('naslov', this.state.title, 'required|alpha_space')}
+                                {this.validator.message('naslov', this.state.title, 'required|string')}
                                 {this.state?.error_message_title}
                               </FormText>
                             </FormGroup>
@@ -295,7 +295,7 @@ class EditPost extends Component {
                                 onChange={this.handleChange}
                               />
                               <FormText color="muted">
-                                {this.validator.message('podnaslov', this.state.subtitle, 'required|alpha_space')}
+                                {this.validator.message('podnaslov', this.state.subtitle, 'required|string')}
                                 {this.state?.error_message_subtitle}
                               </FormText>
                             </FormGroup>
@@ -328,7 +328,6 @@ class EditPost extends Component {
                                 accept="image/png,image/jpg,image/jpeg"
                               ></Input>
                               <FormText color="muted">
-                                {this.validator.message('slika', this.state.image, 'required')}
                                 {this.state?.error_message_image}
                               </FormText>
                             </FormGroup>

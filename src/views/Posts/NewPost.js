@@ -226,7 +226,7 @@ class NewPost extends Component {
                                 onChange={this.handleChange}
                               />
                               <FormText color="muted">
-                                {this.validator.message('naslov', this.state.title, 'required|alpha_space')}
+                                {this.validator.message('naslov', this.state.title, 'required|string')}
                                 {this.state?.error_message_title}
                               </FormText>
                             </FormGroup>
@@ -245,7 +245,7 @@ class NewPost extends Component {
                                 onChange={this.handleChange}
                               />
                               <FormText color="muted">
-                                {this.validator.message('podnaslov', this.state.subtitle, 'required|alpha_space')}
+                                {this.validator.message('podnaslov', this.state.subtitle, 'required|string')}
                                 {this.state?.error_message_subtitle}
                               </FormText>
                             </FormGroup>
