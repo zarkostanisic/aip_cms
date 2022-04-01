@@ -92,6 +92,7 @@ class Posts extends Component {
         <tr key={post.id}>
           <td>{post.id}</td>
           <td>{post.title}</td>
+          <td>{post.subtitle}</td>
           <td>{post.category.name}</td>
           <td>{post.user.username}</td>
           <td>{post.created_at}</td>
@@ -121,6 +122,7 @@ class Posts extends Component {
                       <tr>
                         <th>Id</th>
                         <th>Naslov</th>
+                        <th>Podnaslov</th>
                         <th>Kategorija</th>
                         <th>Korisnik</th>
                         <th>Datum</th>

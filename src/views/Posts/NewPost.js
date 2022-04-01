@@ -33,6 +33,7 @@ class NewPost extends Component {
   state = {
     categories: [],
     title: '',
+    subtitle: '',
     text: '',
     category_id: '',
     images: [],
@@ -68,6 +69,7 @@ class NewPost extends Component {
       
       let results = API.post('api/posts', {
         title: this.state.title,
+        subtitle: this.state.subtitle,
         text: this.state.text,
         category_id: this.state.category_id,
         images: this.state.images
@@ -84,7 +86,7 @@ class NewPost extends Component {
               }
             }
             
-            const keys = ['title', 'text'];
+            const keys = ['title', 'subtitle', 'text', 'about', 'images'];
             
             for(let i in keys){
               if(errors[keys[i]] === undefined){
@@ -201,19 +203,19 @@ class NewPost extends Component {
                       <Form>
                         <Row>
                           <Col md="8">
-                          <FormGroup>
-                            <Label for="first_name">Naslov</Label>
-                            <Input
-                              type="title"
-                              name="title"
-                              value={this.state.title} 
-                              onChange={this.handleChange}
-                            />
-                            <FormText color="muted">
-                              {this.validator.message('naslov', this.state.title, 'required|alpha_space')}
-                              {this.state?.error_message_title}
-                            </FormText>
-                          </FormGroup>
+                            <FormGroup>
+                              <Label for="title">Naslov</Label>
+                              <Input
+                                type="title"
+                                name="title"
+                                value={this.state.title} 
+                                onChange={this.handleChange}
+                              />
+                              <FormText color="muted">
+                                {this.validator.message('naslov', this.state.title, 'required|alpha_space')}
+                                {this.state?.error_message_title}
+                              </FormText>
+                            </FormGroup>
                           </Col>
                           
                           <Col md="4">
@@ -228,6 +230,24 @@ class NewPost extends Component {
                               </Input>
                               <FormText>
                                 {this.state?.error_message_category_id}
+                              </FormText>
+                            </FormGroup>
+                          </Col>
+                        </Row>
+                        
+                        <Row>
+                          <Col md="8">
+                            <FormGroup>
+                              <Label for="subtitle">Podnaslov</Label>
+                              <Input
+                                type="subtitle"
+                                name="subtitle"
+                                value={this.state.subtitle} 
+                                onChange={this.handleChange}
+                              />
+                              <FormText color="muted">
+                                {this.validator.message('podnaslov', this.state.subtitle, 'required|alpha_space')}
+                                {this.state?.error_message_subtitle}
                               </FormText>
                             </FormGroup>
                           </Col>
