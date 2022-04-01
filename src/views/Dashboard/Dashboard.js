@@ -1,25 +1,6 @@
-/*!
-
-=========================================================
-* Paper Dashboard React - v1.3.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/paper-dashboard-react
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-
-* Licensed under MIT (https://github.com/creativetimofficial/paper-dashboard-react/blob/main/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React, {Component} from "react";
 import API from '../../api/api';
-// react plugin used to create charts
-import { Line, Pie } from "react-chartjs-2";
+
 // reactstrap components
 import {
   Card,
@@ -28,24 +9,29 @@ import {
   CardFooter,
   CardTitle,
   Row,
-  Col,
+  Col
 } from "reactstrap";
+
 // core components
-import {
-  dashboard24HoursPerformanceChart,
-  dashboardEmailStatisticsChart,
-  dashboardNASDAQChart,
-} from "variables/charts.js";
+import Chart from './Chart';
 
 class Dashboard extends Component {
   state = {
-    statistics: null
+    statistics: null,
+    posts: null
   };
   
   getStatistics = () => {
     API.get('api/app/statistics')
       .then(result => {
         this.setState({statistics: result.data});
+      });
+      
+    API.get('api/dashboard/posts')
+      .then(result => {
+        this.setState({
+          posts: result.data
+        });
       });
   }
 
@@ -54,6 +40,7 @@ class Dashboard extends Component {
   }
   
   render(){
+
     return (
       <>
         <div className="content">
@@ -153,26 +140,7 @@ class Dashboard extends Component {
           </Row>
           <Row>
             <Col md="12">
-              <Card>
-                <CardHeader>
-                  <CardTitle tag="h5">Users Behavior</CardTitle>
-                  <p className="card-category">24 Hours performance</p>
-                </CardHeader>
-                <CardBody>
-                  <Line
-                    data={dashboard24HoursPerformanceChart.data}
-                    options={dashboard24HoursPerformanceChart.options}
-                    width={400}
-                    height={100}
-                  />
-                </CardBody>
-                <CardFooter>
-                  <hr />
-                  <div className="stats">
-                    <i className="fa fa-history" /> Updated 3 minutes ago
-                  </div>
-                </CardFooter>
-              </Card>
+              <Chart data={this.state.posts} title="Broj objava po mesecima"/>
             </Col>
           </Row>
         </div>
