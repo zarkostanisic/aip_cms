@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export default axios.create({
+const axios_api = axios.create({
   baseURL: 'http://127.0.0.1:8000',
   // baseURL: '/aip/public',
   headers: {
@@ -10,4 +10,23 @@ export default axios.create({
     'Authorization': `Bearer ${typeof localStorage.getItem('token') !== undefined ? localStorage.getItem('token') : ''}`,
     'X-Localization': 'sr'
   }
+})
+
+axios_api.interceptors.response.use(response => {
+    return response;
+}, error => {
+    // 401
+    if (error?.response?.status === 401) {
+        localStorage.clear();
+        window.location.href = '/login';
+    }
+    
+    // 404 || 403 || 406
+    if (error?.response?.status === 404 || error?.response?.status === 403 || error?.response?.status === 406) {
+        window.location.href = '/admin/dashboard';
+    }
+
+    return Promise.reject(error);
 });
+
+export default axios_api;
