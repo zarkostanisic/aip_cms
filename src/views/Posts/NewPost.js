@@ -29,6 +29,8 @@ import {
 
 import {Button} from "reactstrap";
 
+import Map from '../../components/Map/Map';
+
 class NewPost extends Component {
   state = {
     categories: [],
@@ -38,6 +40,8 @@ class NewPost extends Component {
     category_id: '',
     images: [],
     image: [],
+    lat: '',
+    lng: '',
     activeTab: 'info'
   }
   
@@ -74,7 +78,9 @@ class NewPost extends Component {
         text: this.state.text,
         category_id: this.state.category_id,
         images: this.state.images,
-        image: this.state.image
+        image: this.state.image,
+        lat: this.state.lat,
+        lng: this.state.lng
       })
         .then(result => {
           this.props.history.push('/admin/posts');
@@ -160,6 +166,13 @@ class NewPost extends Component {
     this.setState({images: images});
   }
   
+  setPositionLatLng = (latlng = '') => {
+    this.setState({
+      lat: latlng.lat,
+      lng: latlng.lng
+    });
+  }
+  
   render(){
     const categories = this.state.categories.map((category) => {
       return (
@@ -209,6 +222,15 @@ class NewPost extends Component {
                    Slike
                  </NavLink>
                </NavItem>
+               
+               <NavItem>
+                  <NavLink
+                    className={classnames({ active: this.state.activeTab === 'location' })}
+                    onClick={() => { this.toggle('location'); }}
+                  >
+                    Lokacija
+                  </NavLink>
+                </NavItem>
              </Nav>
               <TabContent activeTab={this.state.activeTab}>
                 <TabPane tabId="info">
@@ -347,7 +369,20 @@ class NewPost extends Component {
                     {images}
                   </Row>
                 </TabPane>
-              </TabContent>
+                <TabPane tabId="location" >
+                <Row>
+                  <Col md="12">
+                      {
+                        this.state.activeTab === 'location' 
+                        ?
+                          <Map setPositionLatLng={this.setPositionLatLng}/>
+                        :
+                          null
+                      }
+                  </Col>
+                </Row>
+                </TabPane>
+            </TabContent>
           </CardBody>
         </Card>
         </div>
