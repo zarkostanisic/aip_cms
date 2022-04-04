@@ -29,6 +29,7 @@ import {
 
 import {Button} from "reactstrap";
 
+import Map from '../../components/Map/Map';
 
 
 class EditPost extends Component {
