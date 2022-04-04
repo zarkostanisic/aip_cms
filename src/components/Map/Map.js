@@ -38,7 +38,7 @@ function LocationMarker(props) {
   )
 }
 
-function EventsExample(props) {
+function Map(props) {
   const [position, setPosition] = useState({ lat: 44.787197, lng: 20.457273 });
   const [first, setFirst] = useState(true);
   
@@ -63,4 +63,4 @@ function EventsExample(props) {
   )
 }
 
-export default EventsExample;
+export default Map;

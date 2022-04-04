@@ -370,17 +370,17 @@ class NewPost extends Component {
                   </Row>
                 </TabPane>
                 <TabPane tabId="location" >
-                <Row>
-                  <Col md="12">
-                      {
-                        this.state.activeTab === 'location' 
-                        ?
-                          <Map setPositionLatLng={this.setPositionLatLng}/>
-                        :
-                          null
-                      }
-                  </Col>
-                </Row>
+                  <Row>
+                    <Col md="12">
+                        {
+                          this.state.activeTab === 'location' 
+                          ?
+                            <Map setPositionLatLng={this.setPositionLatLng}/>
+                          :
+                            null
+                        }
+                    </Col>
+                  </Row>
                 </TabPane>
             </TabContent>
           </CardBody>
