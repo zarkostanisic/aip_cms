@@ -29,6 +29,8 @@ import {
 
 import {Button} from "reactstrap";
 
+import Map from '../../components/Map/Map';
+
 class EditPost extends Component {
   state = {
     categories: [],
@@ -40,6 +42,8 @@ class EditPost extends Component {
     image: [],
     old_images: [],
     images_to_remove: [],
+    lat: '',
+    lng: '',
     activeTab: 'info'
   }
   
@@ -78,7 +82,9 @@ class EditPost extends Component {
         category_id: this.state.category_id,
         images: this.state.images,
         image: this.state.image,
-        images_to_remove: this.state.images_to_remove
+        images_to_remove: this.state.images_to_remove,
+        lat: this.state.lat,
+        lng: this.state.lng,
       })
         .then(result => {
           this.props.history.push('/admin/posts');
@@ -156,7 +162,9 @@ class EditPost extends Component {
             subtitle: result.data.data.subtitle,
             text: result.data.data.text,
             category_id: result.data.data.category.id,
-            old_images: result.data.data.images
+            old_images: result.data.data.images,
+            lat: result.data.data.lat,
+            lng: result.data.data.lng,
           });
         });
     }
@@ -189,6 +197,13 @@ class EditPost extends Component {
       
       this.setState({images: images});
     }
+  }
+  
+  setPositionLatLng = (latlng = '') => {
+    this.setState({
+      lat: latlng.lat,
+      lng: latlng.lng
+    });
   }
   
   render(){
@@ -260,6 +275,15 @@ class EditPost extends Component {
                    Slike
                  </NavLink>
                </NavItem>
+               
+               <NavItem>
+                  <NavLink
+                    className={classnames({ active: this.state.activeTab === 'location' })}
+                    onClick={() => { this.toggle('location'); }}
+                  >
+                    Lokacija
+                  </NavLink>
+                </NavItem>
              </Nav>
               <TabContent activeTab={this.state.activeTab}>
                 <TabPane tabId="info">
@@ -393,6 +417,20 @@ class EditPost extends Component {
                     </Col>
                     {old_images}
                     {images}
+                  </Row>
+                </TabPane>
+                
+                <TabPane tabId="location" >
+                  <Row>
+                    <Col md="12">
+                        {
+                          this.state.activeTab === 'location' 
+                          ?
+                            <Map setPositionLatLng={this.setPositionLatLng} lat={this.state.lat} lng={this.state.lng}/>
+                          :
+                            null
+                        }
+                    </Col>
                   </Row>
                 </TabPane>
               </TabContent>
