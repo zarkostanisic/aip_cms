@@ -139,7 +139,7 @@ class FormUser extends Component {
   
   fileSelectedHandler = event => {
       const image = event.target.files[0];
-      const extensions = ['image/png', 'image/jpg', 'image/jpg'];
+      const extensions = ['image/png', 'image/jpg', 'image/jpeg'];
       
       if(extensions.includes(image.type)){
         fileToBase64(image).then(result => {

@@ -132,10 +132,11 @@ class FormPost extends Component {
   fileSelectedHandler = event => {
       
       const images = event.target.files;
-      const extensions = ['image/png', 'image/jpg', 'image/jpg'];
-
+      const extensions = ['image/png', 'image/jpg', 'image/jpeg'];
+      
       for(let i=0;i<images.length;i++){
         let image = images[i];
+  
         if(extensions.includes(image.type)){
           fileToBase64(image).then(result => {
               const newFiles = [...this.state.images, result];
@@ -149,7 +150,7 @@ class FormPost extends Component {
   
   oneFileSelectedHandler = event => {
       const image = event.target.files[0];
-      const extensions = ['image/png', 'image/jpg', 'image/jpg'];
+      const extensions = ['image/png', 'image/jpg', 'image/jpeg'];
       
       if(extensions.includes(image.type)){
         fileToBase64(image).then(result => {
