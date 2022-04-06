@@ -33,7 +33,9 @@ class NewUser extends Component {
     role_id: '',
     image: [],
     team: false,
-    about: ''
+    about: '',
+    social_networks: {},
+    social_network_list: []
   }
   
   handleSave = () => {
@@ -47,7 +49,8 @@ class NewUser extends Component {
         role_id: this.state.role_id,
         image: this.state.image,
         team: this.state.team ? 1 : 0,
-        about: this.state.about
+        about: this.state.about,
+        social_networks: JSON.stringify(this.state.social_networks)
       })
         .then(result => {
           this.props.history.push('/admin/users');
@@ -96,6 +99,16 @@ class NewUser extends Component {
       });
   }
   
+  getSocialNetworks = () => {
+    
+    let result = API.get('api/app/socialNetworks')
+      .then(result => {
+        this.setState({
+          social_network_list: result.data.data
+        });
+      });
+  }
+  
   fileSelectedHandler = event => {
       const image = event.target.files[0];
       const extensions = ['image/png', 'image/jpg', 'image/jpg'];
@@ -112,18 +125,51 @@ class NewUser extends Component {
       }
   };
   
+  handleSocialNetworksChange=(event)=>{
+      let social_networks = this.state.social_networks;
+      const name = event.target.name;
+      const value =  event.target.value;
+      social_networks[name] = value;
+      
+      this.setState({social_networks: social_networks});
+
+      if(value == ''){
+        delete social_networks[name]
+      }
+      
+      this.setState({social_networks: social_networks});
+  } 
+  
   componentWillMount() {
     // Serbian
     SimpleReactValidator.addLocale('sr', validation);
     this.validator = new SimpleReactValidator({locale: 'sr'});
     
     this.getRoles();
+    
+    this.getSocialNetworks();
   }
   
   render(){
     const roles = this.state.roles.map((role) => {
       return (
         <option value={role.id} key={role.id}>{role.name}</option>
+      );
+    });
+
+    const social = this.state.social_network_list.map((network) => {
+      return (
+        <Col md="4" key={network.id}>
+          <FormGroup>
+            <Label for={network.slug}>{network.name}</Label>
+            <Input
+              type="text"
+              name={network.slug}
+              value={this.state.social_networks[network.slug] ? this.state.social_networks[network.slug] : ''} 
+              onChange={this.handleSocialNetworksChange}
+            />
+          </FormGroup>
+        </Col>
       );
     });
     return (
@@ -169,6 +215,11 @@ class NewUser extends Component {
                       </FormGroup>
                       </Col>
                     </Row>
+                    
+                    <Row>
+                      {social}
+                    </Row>
+                    
                     <Row>
                       <Col md="6">
                         <FormGroup>
