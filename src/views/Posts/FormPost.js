@@ -92,6 +92,8 @@ class FormPost extends Component {
       if(this.props.action == 'edit'){
         results = API.patch('api/posts/' + this.props.match.params.id, data);
       }else{
+        delete data['images_to_remove'];
+        
         results = API.post('api/posts', data);
       }
       
