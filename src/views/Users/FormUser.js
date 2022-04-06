@@ -4,6 +4,7 @@ import API from '../../api/api';
 import validation from '../../lang/sr/validation';
 import SimpleReactValidator from 'simple-react-validator';
 import { fileToBase64 } from '../../components/Functions/Functions';
+import classnames from 'classnames';
 
 import {
   FormGroup,
@@ -16,7 +17,12 @@ import {
   CardHeader,
   CardTitle,
   CardBody,
-  Form
+  Form,
+  TabContent,
+  TabPane,
+  Nav,
+  NavLink,
+  NavItem
 } from "reactstrap";
 
 import {Button} from "reactstrap";
@@ -34,7 +40,22 @@ class FormUser extends Component {
     team: false,
     about: '',
     social_networks: {},
-    social_network_list: []
+    social_network_list: [],
+    activeTab: 'info'
+  }
+  
+  constructor(props) {
+    super(props);
+
+    this.toggle = this.toggle.bind(this);
+  }
+  
+  toggle(tab) {
+    if (this.state.activeTab !== tab) {
+      this.setState({
+        activeTab: tab
+      });
+    }
   }
   
   getRoles = () => {
@@ -194,7 +215,7 @@ class FormUser extends Component {
     
     const social = this.state.social_network_list.map((network) => {
       return (
-        <Col md="4" key={network.id}>
+        <Col md="6" key={network.id}>
           <FormGroup>
             <Label for={network.slug}>{network.name}</Label>
             <Input
@@ -218,175 +239,219 @@ class FormUser extends Component {
                   <CardTitle tag="h5">{this.props.action == 'edit' ? 'Izmena korisnika' : 'Novi korisnik'}</CardTitle>
                 </CardHeader>
                 <CardBody>
-                  <Form>
-                    <Row>
-                      <Col md="6">
-                      <FormGroup>
-                        <Label for="first_name">Ime</Label>
-                        <Input
-                          type="first_name"
-                          name="first_name"
-                          value={this.state.first_name} 
-                          onChange={this.handleChange}
-                        />
-                        <FormText color="muted">
-                          {this.validator.message('ime', this.state.first_name, 'required|string')}
-                          {this.state?.error_message_first_name}
-                        </FormText>
-                      </FormGroup>
-                      </Col>
-                      <Col md="6">
-                        <FormGroup>
-                          <Label for="last_name">Prezime</Label>
-                          <Input
-                            type="text"
-                            name="last_name"
-                            value={this.state.last_name} 
-                            onChange={this.handleChange}
-                          />
-                          <FormText color="muted">
-                            {this.validator.message('prezime', this.state.last_name, 'required|string')}
-                            {this.state?.error_message_last_name}
-                          </FormText>
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                    
-                    <Row>
-                      {social}
-                    </Row>
-                    
-                    <Row>
-                      <Col md="6">
-                        <FormGroup>
-                          <Label for="username">Korisničko ime</Label>
-                          <Input
-                            type="text"
-                            name="username"
-                            value={this.state.username} 
-                            onChange={this.handleChange}
-                          />
-                          <FormText color="muted">
-                            {this.validator.message('korisničko ime', this.state.username, 'required|alpha_num')}
-                            {this.state?.error_message_username}
-                          </FormText>
-                        </FormGroup>
-                      </Col>
-                      
-                      <Col md="6">
-                        <FormGroup>
-                          <Label for="email">Email</Label>
-                          <Input
-                            type="text"
-                            name="email"
-                            value={this.state.email} 
-                            onChange={this.handleChange}
-                          />
-                          <FormText color="muted">
-                            {this.validator.message('email', this.state.email, 'required|email')}
-                            {this.state?.error_message_email}
-                          </FormText>
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col md="6">
-                        <FormGroup>
-                          <Label for="password">Lozinka</Label>
-                          <Input
-                            type="password"
-                            name="password"
-                            value={this.state.password} 
-                            onChange={this.handleChange}
-                          />
-                          <FormText color="muted">
-                            {
-                              this.props.action == 'edit' 
-                              ?
-                                this.validator.message('lozinka', this.state.username, 'alpha_num')
-                              :
-                                this.validator.message('lozinka', this.state.username, 'required|alpha_num')
-                            }
-                            {this.state?.error_message_password}
-                          </FormText>
-                        </FormGroup>
-                      </Col>
-                      <Col md="6">
-                        <FormGroup>
-                          <Label for="role_id">Uloga</Label>
-                          <Input type="select"
-                            name="role_id" value={this.state.role_id} 
-                            onChange={this.handleChange}
-                          >
-                            {
-                              this.props.action == 'create'
-                                ?
-                                <option value="">Izaberi</option>
-                                : null
-                            }
-                            {roles}
-                          </Input>
-                          <FormText>
-                            {this.state?.error_message_role_id}
-                          </FormText>
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col md="10">
-                        <FormGroup>
-                          <Label for="image">Avatar</Label>
-                          <Input type="file"
-                            name="image" 
-                            id="image"
-                            onChange={this.fileSelectedHandler}
-                            accept="image/png,image/jpg,image/jpeg"
-                          ></Input>
-                          <FormText color="muted">
-                            {this.props.action == 'create' ? this.validator.message('slika', this.state.image, 'required') : null}
-                            {this.state?.error_message_image}
-                          </FormText>
-                        </FormGroup>
-                      </Col>
-                    
-                      <Col className="pt-4" md="2">
-                        <FormGroup check>
-                          <Label check>
-                            <Input type="checkbox" id="team" name="team" onChange={this.handleCheckbox} checked={this.state.team}/>{' '}
-                            Tim
-                            <span className="form-check-sign">
-                              <span className="check"></span>
-                            </span>
-                          </Label>
-                          {this.validator.message('tim', this.state.team, 'required|boolean')}
-                          {this.state?.error_message_team}
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col md="12">
-                        <FormGroup>
-                          <Label for="text">Tekst</Label>
-                          <Input type="textarea" name="about" 
-                            value={this.state.about} 
-                            onChange={this.handleChange} 
-                          />
-                          <FormText color="muted">
-                            {this.validator.message('tekst', this.state.about, 'required')}
-                            {this.state?.error_message_about}
-                          </FormText>
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <div className="update ml-auto mr-auto">
-                        
-                        <Button color="primary" type="button" onClick={() => this.handleSave()}>
-                          Sačuvaj
-                        </Button>
-                      </div>
-                    </Row>
-                  </Form>
+                <Nav tabs>
+                   <NavItem>
+                     <NavLink
+                       className={classnames({ active: this.state.activeTab === 'info' })}
+                       onClick={() => { this.toggle('info'); }}
+                     >
+                       Osnovno
+                     </NavLink>
+                  </NavItem>
+                  <NavItem>
+                     <NavLink
+                       className={classnames({ active: this.state.activeTab === 'social_networks' })}
+                       onClick={() => { this.toggle('social_networks'); }}
+                     >
+                       Društvene mreže 
+                     </NavLink>
+                   </NavItem>
+                   
+                 </Nav>
+                 <TabContent activeTab={this.state.activeTab}>
+                   <TabPane tabId="info">
+                     <Row>
+                       <Col md="12" className="pt-5">
+                        <Form>
+                          <Row>
+                            <Col md="6">
+                            <FormGroup>
+                              <Label for="first_name">Ime</Label>
+                              <Input
+                                type="first_name"
+                                name="first_name"
+                                value={this.state.first_name} 
+                                onChange={this.handleChange}
+                              />
+                              <FormText color="muted">
+                                {this.validator.message('ime', this.state.first_name, 'required|string')}
+                                {this.state?.error_message_first_name}
+                              </FormText>
+                            </FormGroup>
+                            </Col>
+                            <Col md="6">
+                              <FormGroup>
+                                <Label for="last_name">Prezime</Label>
+                                <Input
+                                  type="text"
+                                  name="last_name"
+                                  value={this.state.last_name} 
+                                  onChange={this.handleChange}
+                                />
+                                <FormText color="muted">
+                                  {this.validator.message('prezime', this.state.last_name, 'required|string')}
+                                  {this.state?.error_message_last_name}
+                                </FormText>
+                              </FormGroup>
+                            </Col>
+                          </Row>
+                          
+                          <Row>
+                            <Col md="6">
+                              <FormGroup>
+                                <Label for="username">Korisničko ime</Label>
+                                <Input
+                                  type="text"
+                                  name="username"
+                                  value={this.state.username} 
+                                  onChange={this.handleChange}
+                                />
+                                <FormText color="muted">
+                                  {this.validator.message('korisničko ime', this.state.username, 'required|alpha_num')}
+                                  {this.state?.error_message_username}
+                                </FormText>
+                              </FormGroup>
+                            </Col>
+                            
+                            <Col md="6">
+                              <FormGroup>
+                                <Label for="email">Email</Label>
+                                <Input
+                                  type="text"
+                                  name="email"
+                                  value={this.state.email} 
+                                  onChange={this.handleChange}
+                                />
+                                <FormText color="muted">
+                                  {this.validator.message('email', this.state.email, 'required|email')}
+                                  {this.state?.error_message_email}
+                                </FormText>
+                              </FormGroup>
+                            </Col>
+                          </Row>
+                          <Row>
+                            <Col md="6">
+                              <FormGroup>
+                                <Label for="password">Lozinka</Label>
+                                <Input
+                                  type="password"
+                                  name="password"
+                                  value={this.state.password} 
+                                  onChange={this.handleChange}
+                                />
+                                <FormText color="muted">
+                                  {
+                                    this.props.action == 'edit' 
+                                    ?
+                                      this.validator.message('lozinka', this.state.username, 'alpha_num')
+                                    :
+                                      this.validator.message('lozinka', this.state.username, 'required|alpha_num')
+                                  }
+                                  {this.state?.error_message_password}
+                                </FormText>
+                              </FormGroup>
+                            </Col>
+                            <Col md="6">
+                              <FormGroup>
+                                <Label for="role_id">Uloga</Label>
+                                <Input type="select"
+                                  name="role_id" value={this.state.role_id} 
+                                  onChange={this.handleChange}
+                                >
+                                  {
+                                    this.props.action == 'create'
+                                      ?
+                                      <option value="">Izaberi</option>
+                                      : null
+                                  }
+                                  {roles}
+                                </Input>
+                                <FormText>
+                                  {this.state?.error_message_role_id}
+                                </FormText>
+                              </FormGroup>
+                            </Col>
+                          </Row>
+                          <Row>
+                            <Col md="10">
+                              <FormGroup>
+                                <Label for="image">Avatar</Label>
+                                <Input type="file"
+                                  name="image" 
+                                  id="image"
+                                  onChange={this.fileSelectedHandler}
+                                  accept="image/png,image/jpg,image/jpeg"
+                                ></Input>
+                                <FormText color="muted">
+                                  {this.props.action == 'create' ? this.validator.message('slika', this.state.image, 'required') : null}
+                                  {this.state?.error_message_image}
+                                </FormText>
+                              </FormGroup>
+                            </Col>
+                          
+                            <Col className="pt-4" md="2">
+                              <FormGroup check>
+                                <Label check>
+                                  <Input type="checkbox" id="team" name="team" onChange={this.handleCheckbox} checked={this.state.team}/>{' '}
+                                  Tim
+                                  <span className="form-check-sign">
+                                    <span className="check"></span>
+                                  </span>
+                                </Label>
+                                {this.validator.message('tim', this.state.team, 'required|boolean')}
+                                {this.state?.error_message_team}
+                              </FormGroup>
+                            </Col>
+                          </Row>
+                          <Row>
+                            <Col md="12">
+                              <FormGroup>
+                                <Label for="text">Tekst</Label>
+                                <Input type="textarea" name="about" 
+                                  value={this.state.about} 
+                                  onChange={this.handleChange} 
+                                />
+                                <FormText color="muted">
+                                  {this.validator.message('tekst', this.state.about, 'required')}
+                                  {this.state?.error_message_about}
+                                </FormText>
+                              </FormGroup>
+                            </Col>
+                          </Row>
+                          <Row>
+                            <div className="update ml-auto mr-auto">
+                              
+                              <Button color="primary" type="button" onClick={() => this.handleSave()}>
+                                Sačuvaj
+                              </Button>
+                            </div>
+                          </Row>
+                        </Form>
+                        </Col>
+                      </Row>
+                    </TabPane>
+                  </TabContent>
+                  
+                  <TabContent activeTab={this.state.activeTab}>
+                    <TabPane tabId="social_networks">
+                      <Row>
+                        <Col md="12" className="pt-5">
+                          {
+                            this.state.activeTab === 'social_networks' 
+                            ?
+                                <Form>
+                                  <Row>
+                                    {social}
+                                  </Row>
+                                </Form>                            
+                            :
+                              null
+                          }
+                         
+                         </Col>
+                       </Row>
+                     </TabPane>
+                   </TabContent>
                 </CardBody>
               </Card>
             </Col>
