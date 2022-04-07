@@ -223,6 +223,7 @@ class FormUser extends Component {
               name={network.slug}
               value={this.state.social_networks ? (this.state.social_networks[network.slug] ? this.state.social_networks[network.slug] : '') : ''} 
               onChange={this.handleSocialNetworksChange}
+              placeholder={network.placeholder}
             />
           </FormGroup>
         </Col>
