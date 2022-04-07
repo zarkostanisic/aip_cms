@@ -367,7 +367,7 @@ class FormUser extends Component {
                                   {roles}
                                 </Input>
                                 <FormText>
-                                {this.validator.message('uloga', this.state.role_id, 'required|boolean')}
+                                  {this.validator.message('uloga', this.state.role_id, 'required|boolean')}
                                   {this.state?.error_message_role_id}
                                 </FormText>
                               </FormGroup>
