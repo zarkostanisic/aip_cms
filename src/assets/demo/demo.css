@@ -231,3 +231,15 @@
   background-repeat: no-repeat;
   background-position: center;
 }
+
+.form-group input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #ccc; /* Firefox */
+}
+
+.form-group input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #ccc;
+}
+
+.form-group input::-ms-input-placeholder { /* Microsoft Edge */
+  color: #ccc;
+}
