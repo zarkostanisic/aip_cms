@@ -32,6 +32,13 @@ class Chart extends Component{
         plugins: {
           legend: { display: false },
           tooltip: { enabled: true },
+        },
+        scales: {
+          y: {
+              ticks: {
+                  precision: 0
+              }
+          }
         }
       }
     };
