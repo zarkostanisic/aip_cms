@@ -110,7 +110,6 @@ class Posts extends Component {
   }
   
   componentDidUpdate = (prevProps, prevState) => {
-    console.log(this.state.date_from);
     let load = false;
     
     if(prevState.category_id !== this.state.category_id){
