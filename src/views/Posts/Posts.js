@@ -37,7 +37,7 @@ class Posts extends Component {
     loading: false,
     category_id: '',
     date_from: '',
-    date_to: new Date(),
+    date_to: '',
     categories: []
   };
   
@@ -206,6 +206,7 @@ class Posts extends Component {
                               className="form-control" 
                               selected={this.state.date_to} onChange={(date:Date) => this.setDate(date, 'date_to')} 
                               maxDate={new Date}
+                              minDate={this.state.date_from}
                               />
                           </FormGroup>
                         </Col>

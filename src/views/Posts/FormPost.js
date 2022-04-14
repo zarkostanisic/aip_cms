@@ -230,7 +230,7 @@ class FormPost extends Component {
     const old_images = this.state.old_images.map((image, key) => {
       
       return (
-        <Col md="2" key={key}>
+        <Col md="4" sm="6" xl="2" xs="6" key={key}>
           <Card >
             <CardBody>
               <div className="postImg" style={{ backgroundImage: `url('${image.path}')` }}></div>
@@ -248,7 +248,7 @@ class FormPost extends Component {
     
     const images = this.state.images.map((image, key) => {
       return (
-        <Col md="2" key={key}>
+        <Col md="4" sm="6" xl="2" xs="6" key={key}>
           <Card >
             <CardBody>
               <div className="postImg" style={{ backgroundImage: `url('${image}')` }}></div>
