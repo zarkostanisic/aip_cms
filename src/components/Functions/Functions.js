@@ -11,3 +11,10 @@ export const fileToBase64 = (files) => {
     reader.readAsDataURL(file);
   });
 };
+
+// Function for formatting dates from calendar, to send to API
+export const formatDateHandler = (date) => {
+  const new_date = new Date(date);
+  const dateString = new Date(new_date.getTime() - (new_date.getTimezoneOffset() * 60000));
+  return dateString.toISOString().split('T')[0];
+};
