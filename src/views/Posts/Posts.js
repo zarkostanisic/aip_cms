@@ -37,7 +37,7 @@ class Posts extends Component {
     loading: false,
     category_id: '',
     date_from: '',
-    date_to: '',
+    date_to: new Date(),
     categories: []
   };
   
@@ -189,14 +189,24 @@ class Posts extends Component {
                         <Col md="4">
                           <FormGroup>
                             <Label for="date_from">Datum od</Label>
-                            <DatePicker name="date_from" className="form-control" selected={this.state.date_from} onChange={(date:Date) => this.setDate(date, 'date_from')} />
+                            <DatePicker 
+                              name="date_from" 
+                              className="form-control" 
+                              selected={this.state.date_from} onChange={(date:Date) => this.setDate(date, 'date_from')} 
+                              maxDate={this.state.date_to}
+                            />
                           </FormGroup>
                         </Col>
                         
                         <Col md="4">
                           <FormGroup>
                             <Label for="date_to">Datum do</Label>
-                            <DatePicker name="date_to" className="form-control" selected={this.state.date_to} onChange={(date:Date) => this.setDate(date, 'date_to')} />
+                            <DatePicker 
+                              name="date_to" 
+                              className="form-control" 
+                              selected={this.state.date_to} onChange={(date:Date) => this.setDate(date, 'date_to')} 
+                              maxDate={new Date}
+                              />
                           </FormGroup>
                         </Col>
                       </Row>
