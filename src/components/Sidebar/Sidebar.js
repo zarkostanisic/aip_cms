@@ -23,7 +23,7 @@ import {Link} from "react-router-dom";
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
 
-import logo from "logo.png";
+import logo from "logo.svg";
 
 var ps;
 
