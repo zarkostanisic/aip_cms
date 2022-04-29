@@ -113,7 +113,7 @@ class LoginPage extends Component {
                       <img style={{width: "20%"}}
                         alt="..."
                         src={require("../../logo.svg").default}
-                      ></img>
+                      />
                     </div>
                   </CardHeader>
                   <CardBody>
