@@ -274,7 +274,7 @@ class FormUser extends Component {
                                 value={this.state.first_name} 
                                 onChange={this.handleChange}
                               />
-                              <FormText color="muted">
+                              <FormText color="danger">
                                 {this.validator.message('ime', this.state.first_name, 'required|string')}
                                 {this.state?.error_message_first_name}
                               </FormText>
@@ -289,7 +289,7 @@ class FormUser extends Component {
                                   value={this.state.last_name} 
                                   onChange={this.handleChange}
                                 />
-                                <FormText color="muted">
+                                <FormText color="danger">
                                   {this.validator.message('prezime', this.state.last_name, 'required|string')}
                                   {this.state?.error_message_last_name}
                                 </FormText>
@@ -307,7 +307,7 @@ class FormUser extends Component {
                                   value={this.state.username} 
                                   onChange={this.handleChange}
                                 />
-                                <FormText color="muted">
+                                <FormText color="danger">
                                   {this.validator.message('korisničko ime', this.state.username, 'required|alpha_num')}
                                   {this.state?.error_message_username}
                                 </FormText>
@@ -323,7 +323,7 @@ class FormUser extends Component {
                                   value={this.state.email} 
                                   onChange={this.handleChange}
                                 />
-                                <FormText color="muted">
+                                <FormText color="danger">
                                   {this.validator.message('email', this.state.email, 'required|email')}
                                   {this.state?.error_message_email}
                                 </FormText>
@@ -340,7 +340,7 @@ class FormUser extends Component {
                                   value={this.state.password} 
                                   onChange={this.handleChange}
                                 />
-                                <FormText color="muted">
+                                <FormText color="danger">
                                   {
                                     this.props.action == 'edit' 
                                     ?
@@ -367,7 +367,7 @@ class FormUser extends Component {
                                   }
                                   {roles}
                                 </Input>
-                                <FormText>
+                                <FormText color="danger">
                                   {this.validator.message('uloga', this.state.role_id, 'required')}
                                   {this.state?.error_message_role_id}
                                 </FormText>
@@ -384,7 +384,7 @@ class FormUser extends Component {
                                   onChange={this.fileSelectedHandler}
                                   accept="image/png,image/jpg,image/jpeg"
                                 ></Input>
-                                <FormText color="muted">
+                                <FormText color="danger">
                                   {this.props.action == 'create' ? this.validator.message('slika', this.state.image, 'required') : null}
                                   {this.state?.error_message_image}
                                 </FormText>
@@ -413,7 +413,7 @@ class FormUser extends Component {
                                   value={this.state.about} 
                                   onChange={this.handleChange} 
                                 />
-                                <FormText color="muted">
+                                <FormText color="danger">
                                   {this.validator.message('tekst', this.state.about, 'required')}
                                   {this.state?.error_message_about}
                                 </FormText>

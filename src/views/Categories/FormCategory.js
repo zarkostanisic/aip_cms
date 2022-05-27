@@ -108,9 +108,9 @@ class FormCategory extends Component {
                       value={this.state.name} 
                       onChange={this.handleChange}
                     />
-                    <FormText color="muted">
+                    <FormText color="danger">
                       {this.validator.message('naziv', this.state.name, 'required|string')}
-                      {this.state.error_message_name}
+                      {this.state?.error_message_name}
                     </FormText>
                   </FormGroup>
                   <Button color="primary" type="button" onClick={() => this.handleSave()}>

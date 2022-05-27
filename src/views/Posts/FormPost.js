@@ -314,7 +314,7 @@ class FormPost extends Component {
                                 value={this.state.title} 
                                 onChange={this.handleChange}
                               />
-                              <FormText color="muted">
+                              <FormText color="danger">
                                 {this.validator.message('naslov', this.state.title, 'required|string')}
                                 {this.state?.error_message_title}
                               </FormText>
@@ -332,7 +332,7 @@ class FormPost extends Component {
                                 value={this.state.subtitle} 
                                 onChange={this.handleChange}
                               />
-                              <FormText color="muted">
+                              <FormText color="danger">
                                 {this.validator.message('podnaslov', this.state.subtitle, 'required|string')}
                                 {this.state?.error_message_subtitle}
                               </FormText>
@@ -354,8 +354,9 @@ class FormPost extends Component {
                                 }
                                 {categories}
                               </Input>
-                              <FormText>
+                              <FormText color="danger">
                                 {this.state?.error_message_category_id}
+                                {this.validator.message('kategorija', this.state.category_id, 'required|numeric')}
                               </FormText>
                             </FormGroup>
                           </Col>
@@ -371,7 +372,7 @@ class FormPost extends Component {
                                 onChange={this.oneFileSelectedHandler}
                                 accept="image/png,image/jpg,image/jpeg"
                               ></Input>
-                              <FormText color="muted">
+                              <FormText color="danger">
                                 {
                                   this.props.action == 'create'
                                     ?
@@ -401,7 +402,7 @@ class FormPost extends Component {
                                       this.setState({text: data});
                                   } }
                               />
-                              <FormText color="muted">
+                              <FormText color="danger">
                                 {this.validator.message('tekst', this.state.text, 'required')}
                                 {this.state?.error_message_text}
                               </FormText>
@@ -437,7 +438,7 @@ class FormPost extends Component {
                         />
 
                         <Button color="primary" onClick={() => { if (this.fileInput) this.fileInput.click() }}><i className="icon-plus icons font-xl"></i>Izaberi slike</Button>
-                        <FormText color="muted">
+                        <FormText color="danger">
                           {this.state?.error_message_images}
                         </FormText>
                       </FormGroup>
